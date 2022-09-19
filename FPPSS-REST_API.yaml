@@ -1,0 +1,97 @@
+swagger: "2.0"
+info:
+  title: FPPSS-Energy REST-API
+  description: FPPSS-Energy REST-API
+  version: 1.0.0
+schemes:
+  - https
+  - http
+# tags are used for organizing operations
+tags:
+  - name: developers
+    description: Operations available to regular developers
+host: localhost:8080
+basePath: /api/v1
+paths:
+  /accounts/getProviderAccounts:
+    get:
+      tags:
+        - developers
+      description: get all provider accounts
+      operationId: getProviderAccounts
+      produces:
+        - application/json
+      responses:
+        200:
+          description: successfully query
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ProviderAccountObject'
+  /consumption/saveYearValues:
+    post:
+      tags:
+        - developers
+      description: save year values in database
+      operationId: saveYearValues
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          required: true
+          name: TimeValueObject
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TimeValueObject'
+      responses:
+        200:
+          description: successfully saved
+definitions:
+  TimeValueObject:
+    type: object
+    properties:
+      timestamp:
+        type: string
+        format: date-time
+        example: "2021-01-30T08:30:00Z"
+        description: timestamp of the value
+      value:
+        type: number
+        example: 1.13
+        description: diff value since last value
+      counter-value:
+        type: number
+        example: 1.13
+        description: counter value of the smart meeter
+  ProviderAccountObject:
+    type: object
+    properties:
+      providerName:
+        type: string
+        example: nb
+        description: provider short name
+      providerFullName:
+        type: string
+        example: Netz Burgenland
+        description: provider full name
+      providerType:
+        type: integer
+        example: 0
+        description: provider type 0=energy provider, 1=inverter
+      providerId:
+        type: integer
+        example: 1
+        description: provider id
+      providerAccountId:
+          type: integer
+          example: id
+          description: id of provider account
+      providerAccountUsername:
+        type: string
+        example: user
+        description: provider account user name
+      providerAccountPassword:
+        type: string
+        example: pass
+        description: provider account user password
