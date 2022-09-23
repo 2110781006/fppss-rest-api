@@ -14,16 +14,22 @@ import javax.validation.constraints.*;
 /**
  * TimeValueObject
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-09-15T21:38:43.045400+02:00[Europe/Vienna]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-09-23T20:53:57.896210+02:00[Europe/Vienna]")
 public class TimeValueObject   {
   @JsonProperty("timestamp")
   @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime timestamp;
 
+  @JsonProperty("datapointname")
+  private String datapointname;
+
+  @JsonProperty("providerAccountId")
+  private Integer providerAccountId;
+
   @JsonProperty("value")
   private BigDecimal value;
 
-  @JsonProperty("counter-value")
+  @JsonProperty("counterValue")
   private BigDecimal counterValue;
 
   public TimeValueObject timestamp(OffsetDateTime timestamp) {
@@ -45,6 +51,46 @@ public class TimeValueObject   {
 
   public void setTimestamp(OffsetDateTime timestamp) {
     this.timestamp = timestamp;
+  }
+
+  public TimeValueObject datapointname(String datapointname) {
+    this.datapointname = datapointname;
+    return this;
+  }
+
+  /**
+   * name of the datapoint
+   * @return datapointname
+  */
+  @ApiModelProperty(example = "xyz", value = "name of the datapoint")
+
+
+  public String getDatapointname() {
+    return datapointname;
+  }
+
+  public void setDatapointname(String datapointname) {
+    this.datapointname = datapointname;
+  }
+
+  public TimeValueObject providerAccountId(Integer providerAccountId) {
+    this.providerAccountId = providerAccountId;
+    return this;
+  }
+
+  /**
+   * provider account id
+   * @return providerAccountId
+  */
+  @ApiModelProperty(example = "1", value = "provider account id")
+
+
+  public Integer getProviderAccountId() {
+    return providerAccountId;
+  }
+
+  public void setProviderAccountId(Integer providerAccountId) {
+    this.providerAccountId = providerAccountId;
   }
 
   public TimeValueObject value(BigDecimal value) {
@@ -100,13 +146,15 @@ public class TimeValueObject   {
     }
     TimeValueObject timeValueObject = (TimeValueObject) o;
     return Objects.equals(this.timestamp, timeValueObject.timestamp) &&
+        Objects.equals(this.datapointname, timeValueObject.datapointname) &&
+        Objects.equals(this.providerAccountId, timeValueObject.providerAccountId) &&
         Objects.equals(this.value, timeValueObject.value) &&
         Objects.equals(this.counterValue, timeValueObject.counterValue);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(timestamp, value, counterValue);
+    return Objects.hash(timestamp, datapointname, providerAccountId, value, counterValue);
   }
 
   @Override
@@ -115,6 +163,8 @@ public class TimeValueObject   {
     sb.append("class TimeValueObject {\n");
     
     sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
+    sb.append("    datapointname: ").append(toIndentedString(datapointname)).append("\n");
+    sb.append("    providerAccountId: ").append(toIndentedString(providerAccountId)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    counterValue: ").append(toIndentedString(counterValue)).append("\n");
     sb.append("}");

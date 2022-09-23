@@ -1,42 +1,37 @@
 package org.openapitools;
 
-import com.mysql.cj.jdbc.MysqlDataSource;
-
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DbConnector
 {
     private String username;
     private String password;
+    private String url;
 
-    private MysqlDataSource dataSource;
+    private Connection connection;
 
-    public DbConnector(String username, String password)
+    public DbConnector(String url, String username, String password)
     {
         this.username = username;
         this.password = password;
-
-        dataSource = new MysqlDataSource();
-
+        this.url = url;
     }
 
     public void open() throws SQLException
     {
-        dataSource.setUser(username);
-        dataSource.setPassword(password);
-        dataSource.setServerName("localhost");
-        dataSource.setDatabaseName("fppss-energy");
+        connection = DriverManager.getConnection(url,username,password);
     }
 
     public Connection getConnection() throws SQLException
     {
-        return dataSource.getConnection();
+        return connection;
     }
 
     public void close() throws SQLException
     {
-        if ( !dataSource.getConnection().isClosed() )
-            dataSource.getConnection().close();
+        if ( !connection.isClosed() )
+            connection.close();
     }
 }

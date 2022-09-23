@@ -5,28 +5,26 @@
  */
 package org.openapitools.api;
 
+import org.jooq.DSLContext;
+import org.jooq.Record;
+import org.jooq.Result;
+import org.jooq.impl.DSL;
 import org.openapitools.DbConnector;
 import org.openapitools.model.ProviderAccountObject;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.multipart.MultipartFile;
-import springfox.documentation.annotations.ApiIgnore;
 
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
+
+import static org.jooq.impl.DSL.*;
+
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-09-15T21:38:43.045400+02:00[Europe/Vienna]")
 @Validated
 @Api(value = "accounts", description = "the accounts API")
@@ -53,42 +51,43 @@ public interface AccountsApi {
     {
         try
         {
-            DbConnector connector = new DbConnector(System.getenv("DB_USER"), System.getenv("DB_PASSWORD"));
+            DbConnector connector = new DbConnector(System.getenv("DB_URL"), System.getenv("DB_USER"), System.getenv("DB_PASSWORD"));
             connector.open();
 
             Connection conn = connector.getConnection();
 
-            String query = "select p.id as providerId, p.name as providerName, p.fullname as providerFullname, p.type as providerType, " +
-                           "       pa.id as providerAccountId, pa.userame as providerAccountUsername, pa.password as providerAccountPassword " +
-                           "from provider p, provider_accounts pa " +
-                           "where pa.provider_id = p.id";
+            DSLContext query = DSL.using(conn);
 
-            // create the java statement
-            Statement st = conn.createStatement();
-
-            // execute the query, and get a java resultset
-            ResultSet rs = st.executeQuery(query);
+            Result result = query
+                    .select(field("p.id").as("providerId"))
+                    .select(field("p.name").as("providerName"))
+                    .select(field("p.fullname").as("providerFullname"))
+                    .select(field("p.type").as("providerType"))
+                    .select(field("pa.id").as("providerAccountId"))
+                    .select(field("pa.username").as("providerAccountUsername"))
+                    .select(field("pa.password").as("providerAccountPassword"))
+                    .from(table("provider").as("p"))
+                    .leftOuterJoin(table("provider_accounts").as("pa")).on(field("p.id").equal(field("pa.id"))).fetch();
 
             List<ProviderAccountObject> accounts = new ArrayList();
 
-            // iterate through the java resultset
-            while (rs.next())
+            for (var r : result)
             {
+                Record record = (Record)r;
                 ProviderAccountObject providerAccountObject = new ProviderAccountObject();
 
-                providerAccountObject.setProviderId(rs.getInt("providerId"));
-                providerAccountObject.setProviderName(rs.getString("providerName"));
-                providerAccountObject.setProviderFullName(rs.getString("providerFullname"));
-                providerAccountObject.setProviderType(rs.getInt("providerType"));
-                providerAccountObject.setProviderAccountId(rs.getInt("providerType"));
-                providerAccountObject.setProviderAccountUsername(rs.getString("providerAccountUsername"));
-                providerAccountObject.setProviderAccountPassword(rs.getString("providerAccountPassword"));
+                providerAccountObject.setProviderId(record.get(field("providerId"), Integer.class));
+                providerAccountObject.setProviderName(record.get("providerName", String.class));
+                providerAccountObject.setProviderFullName(record.get("providerFullname", String.class));
+                providerAccountObject.setProviderType(record.get("providerType", Integer.class));
+                providerAccountObject.setProviderAccountId(record.get("providerAccountId", Integer.class));
+                providerAccountObject.setProviderAccountUsername(record.get("providerAccountUsername", String.class));
+                providerAccountObject.setProviderAccountPassword(record.get("providerAccountPassword", String.class));
 
                 accounts.add(providerAccountObject);
             }
-            st.close();
 
-            connector.close();
+            conn.close();
 
             return new ResponseEntity<>(accounts, HttpStatus.OK);
         }

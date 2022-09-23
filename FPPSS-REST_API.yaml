@@ -6,6 +6,7 @@ info:
 schemes:
   - https
   - http
+
 # tags are used for organizing operations
 tags:
   - name: developers
@@ -56,11 +57,19 @@ definitions:
         format: date-time
         example: "2021-01-30T08:30:00Z"
         description: timestamp of the value
+      datapointname:
+        type: string
+        example: "xyz"
+        description: name of the datapoint
+      providerAccountId:
+        type: integer
+        example: 1
+        description: provider account id
       value:
         type: number
         example: 1.13
         description: diff value since last value
-      counter-value:
+      counterValue:
         type: number
         example: 1.13
         description: counter value of the smart meeter
