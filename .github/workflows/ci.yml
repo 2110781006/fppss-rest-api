@@ -51,4 +51,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ github.actor }}/${{ github.event.repository.name }}:latest
+          tags: ${{ GITHUB_REPOSITORY }}:latest
