@@ -48,8 +48,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ inputs.GITHUB_TOKEN }}
 
+      - name: write image tag (transformed to lowercase) to environment $GITHUB_ENV
+        run: echo "DOCKER_IMAGE_TAG=$(echo ${{ github.event.repository.owner.login }}/${{ github.repository }} | tr '[:upper:]' '[:lower:]'):latest" >> $GITHUB_ENV
+
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: $(echo ${{ github.event.repository.owner.login }}/${{ github.repository }} | tr '[:upper:]' '[:lower:]'):latest
+          tags: ${{ env.DOCKER_IMAGE_TAG }}
