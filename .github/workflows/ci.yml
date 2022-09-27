@@ -52,4 +52,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}:latest
+          tags: $(echo ${{ github.event.repository.owner.login }}/${{ github.repository }} | tr '[:upper:]' '[:lower:]'):latest
