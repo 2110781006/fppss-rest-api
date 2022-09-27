@@ -28,31 +28,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        name: Checkout repository
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-#      - name: Login to DockerHub
-#        uses: docker/login-action@v2
-#        with:
-#          username: ${{ secrets.DOCKERHUB_USERNAME }}
-#          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Login to GitHub Container Registry
-        if: ${{ inputs.GITHUB_TOKEN != '' }}
-        uses: docker/login-action@v1
+      - uses: pmorelli92/github-container-registry-build-push@2.0.0
+        name: Build and Publish latest container image
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ inputs.GITHUB_TOKEN }}
-
-      - name: write image tag (transformed to lowercase) to environment $GITHUB_ENV
-        run: echo "DOCKER_IMAGE_TAG=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]'):latest" >> $GITHUB_ENV
-
-      - name: Build and push
-        uses: docker/build-push-action@v3
-        with:
-          push: true
-          tags: ${{ env.DOCKER_IMAGE_TAG }}
+          github-push-secret: ${{ secrets.GITHUB_TOKEN }}
+          docker-image-name: fppss-rest-api
+          docker-image-tag: latest # optional
+          dockerfile-path: ./Dockerfile # optional
+          build-context: ./ # optional
