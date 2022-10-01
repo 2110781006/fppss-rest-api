@@ -1,13 +1,21 @@
 package org.openapitools.model;
 
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
+
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.jooq.DSLContext;
+import org.jooq.Record;
+import org.jooq.Result;
+import org.jooq.impl.DSL;
+import org.openapitools.DbConnector;
+
+import static org.jooq.impl.DSL.*;
+
 
 /**
  * ProviderAccountObject
@@ -224,6 +232,107 @@ public class ProviderAccountObject   {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Get all provider accounts
+   * @return
+   * @throws Exception
+   */
+  public static ArrayList<ProviderAccountObject> getProviderAccounts() throws Exception
+  {
+    DbConnector connector = new DbConnector(System.getenv("DB_URL"), System.getenv("DB_USER"), System.getenv("DB_PASSWORD"));
+
+    connector.open();//open databaseconnection
+
+    Connection conn = connector.getConnection();
+
+    DSLContext query = DSL.using(conn);
+
+    Result result = query
+            .select(field("p.id").as("providerId"))
+            .select(field("p.name").as("providerName"))
+            .select(field("p.fullname").as("providerFullname"))
+            .select(field("p.type").as("providerType"))
+            .select(field("pa.id").as("providerAccountId"))
+            .select(field("pa.username").as("providerAccountUsername"))
+            .select(field("pa.password").as("providerAccountPassword"))
+            .from(table("provider").as("p"))
+            .leftOuterJoin(table("provider_accounts").as("pa")).on(field("p.id").equal(field("pa.id"))).fetch();
+
+    ArrayList<ProviderAccountObject> accounts = new ArrayList();
+
+    for (var r : result)
+    {
+      Record record = (Record) r;
+      ProviderAccountObject providerAccountObject = new ProviderAccountObject();
+
+      providerAccountObject.setProviderId(record.get(field("providerId"), Integer.class));
+      providerAccountObject.setProviderName(record.get("providerName", String.class));
+      providerAccountObject.setProviderFullName(record.get("providerFullname", String.class));
+      providerAccountObject.setProviderType(record.get("providerType", Integer.class));
+      providerAccountObject.setProviderAccountId(record.get("providerAccountId", Integer.class));
+      providerAccountObject.setProviderAccountUsername(record.get("providerAccountUsername", String.class));
+      providerAccountObject.setProviderAccountPassword(record.get("providerAccountPassword", String.class));
+
+      accounts.add(providerAccountObject);
+    }
+
+    conn.close();//close databaseconnection
+
+    return accounts;
+  }
+
+  /**
+   * get all provideraccounts of given user
+   * @param userId
+   * @return
+   * @throws Exception
+   */
+  public static ArrayList<ProviderAccountObject> getProviderAccounts(int userId) throws Exception
+  {
+    DbConnector connector = new DbConnector(System.getenv("DB_URL"), System.getenv("DB_USER"), System.getenv("DB_PASSWORD"));
+
+    connector.open();//open database connection
+
+    Connection conn = connector.getConnection();
+
+    DSLContext query = DSL.using(conn);
+
+    Result result = query
+            .select(field("p.id").as("providerId"))
+            .select(field("p.name").as("providerName"))
+            .select(field("p.fullname").as("providerFullname"))
+            .select(field("p.type").as("providerType"))
+            .select(field("pa.id").as("providerAccountId"))
+            .select(field("pa.username").as("providerAccountUsername"))
+            .select(field("pa.password").as("providerAccountPassword"))
+            .from(table("provider").as("p"))
+            .leftOuterJoin(table("provider_accounts").as("pa")).on(field("p.id").equal(field("pa.id")))
+            .where(field("pa.user_id").equal(userId))
+            .fetch();
+
+    ArrayList<ProviderAccountObject> accounts = new ArrayList();
+
+    for (var r : result)
+    {
+      Record record = (Record) r;
+      ProviderAccountObject providerAccountObject = new ProviderAccountObject();
+
+      providerAccountObject.setProviderId(record.get(field("providerId"), Integer.class));
+      providerAccountObject.setProviderName(record.get("providerName", String.class));
+      providerAccountObject.setProviderFullName(record.get("providerFullname", String.class));
+      providerAccountObject.setProviderType(record.get("providerType", Integer.class));
+      providerAccountObject.setProviderAccountId(record.get("providerAccountId", Integer.class));
+      providerAccountObject.setProviderAccountUsername(record.get("providerAccountUsername", String.class));
+      providerAccountObject.setProviderAccountPassword(record.get("providerAccountPassword", String.class));
+
+      accounts.add(providerAccountObject);
+    }
+
+    conn.close();//close databaseconnection
+
+    return accounts;
   }
 }
 
