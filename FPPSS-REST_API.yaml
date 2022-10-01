@@ -1,106 +1,122 @@
-swagger: "2.0"
+openapi: 3.0.0
 info:
   title: FPPSS-Energy REST-API
   description: FPPSS-Energy REST-API
   version: 1.0.0
-schemes:
-  - https
-  - http
-
-# tags are used for organizing operations
 tags:
   - name: developers
     description: Operations available to regular developers
-host: localhost:8080
-basePath: /api/v1
 paths:
-  /accounts/getProviderAccounts:
+  /provideraccounts:
     get:
       tags:
         - developers
       description: get all provider accounts
-      operationId: getProviderAccounts
-      produces:
-        - application/json
+      operationId: provideraccounts
       responses:
-        200:
+        "200":
           description: successfully query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProviderAccountObject"
+  /provideraccounts/{userid}:
+    get:
+      tags:
+        - developers
+      description: get all provider accounts
+      operationId: provideraccount
+      parameters:
+        - name: userid
+          in: path
+          required: true
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/ProviderAccountObject'
+            type: integer
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/ProviderAccountObject"
   /consumption/saveYearValues:
     post:
       tags:
         - developers
       description: save year values in database
       operationId: saveYearValues
-      consumes:
-        - application/json
-      parameters:
-        - in: body
-          required: true
-          name: TimeValueObject
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/TimeValueObject'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/TimeValueObject"
+        required: true
       responses:
-        200:
+        "200":
           description: successfully saved
-definitions:
-  TimeValueObject:
-    type: object
-    properties:
-      timestamp:
-        type: string
-        format: date-time
-        example: "2021-01-30T08:30:00Z"
-        description: timestamp of the value
-      datapointname:
-        type: string
-        example: "xyz"
-        description: name of the datapoint
-      providerAccountId:
-        type: integer
-        example: 1
-        description: provider account id
-      value:
-        type: number
-        example: 1.13
-        description: diff value since last value
-      counterValue:
-        type: number
-        example: 1.13
-        description: counter value of the smart meeter
-  ProviderAccountObject:
-    type: object
-    properties:
-      providerName:
-        type: string
-        example: nb
-        description: provider short name
-      providerFullName:
-        type: string
-        example: Netz Burgenland
-        description: provider full name
-      providerType:
-        type: integer
-        example: 0
-        description: provider type 0=energy provider, 1=inverter
-      providerId:
-        type: integer
-        example: 1
-        description: provider id
-      providerAccountId:
+servers:
+  - url: https://localhost:8080/api/v1
+  - url: http://localhost:8080/api/v1
+components:
+  schemas:
+    TimeValueObject:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+          description: timestamp of the value
+        datapointname:
+          type: string
+          example: xyz
+          description: name of the datapoint
+        providerAccountId:
+          type: integer
+          example: 1
+          description: provider account id
+        value:
+          type: number
+          example: 1.13
+          description: diff value since last value
+        counterValue:
+          type: number
+          example: 1.13
+          description: counter value of the smart meeter
+    ProviderAccountObject:
+      type: object
+      properties:
+        providerName:
+          type: string
+          example: nb
+          description: provider short name
+        providerFullName:
+          type: string
+          example: Netz Burgenland
+          description: provider full name
+        providerType:
+          type: integer
+          example: 0
+          description: provider type 0=energy provider, 1=inverter
+        providerId:
+          type: integer
+          example: 1
+          description: provider id
+        providerAccountId:
           type: integer
           example: id
           description: id of provider account
-      providerAccountUsername:
-        type: string
-        example: user
-        description: provider account user name
-      providerAccountPassword:
-        type: string
-        example: pass
-        description: provider account user password
+        providerAccountUsername:
+          type: string
+          example: user
+          description: provider account user name
+        providerAccountPassword:
+          type: string
+          example: pass
+          description: provider account user password
