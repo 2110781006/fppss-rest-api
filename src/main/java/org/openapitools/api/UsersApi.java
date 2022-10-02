@@ -37,7 +37,7 @@ public interface UsersApi {
      *
      * @return successfully query (status code 200)
      */
-    @ApiOperation(value = "", nickname = "users", notes = "get all users", response = UserObject.class, responseContainer = "List", tags={ "developers", })
+    @ApiOperation(value = "", nickname = "users", notes = "get all users", response = UserObject.class, responseContainer = "List", tags={ "users", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = UserObject.class, responseContainer = "List") })
     @GetMapping(

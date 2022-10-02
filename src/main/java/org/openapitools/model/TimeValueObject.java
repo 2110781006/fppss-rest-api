@@ -181,5 +181,10 @@ public class TimeValueObject   {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
+  public static String getLastTimestamp()
+  {
+    return null;
+  }
 }
 

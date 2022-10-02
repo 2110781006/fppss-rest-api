@@ -10,7 +10,7 @@ paths:
   /provideraccounts:
     get:
       tags:
-        - developers
+        - provideraccounts
       description: get all provider accounts
       operationId: provideraccounts
       responses:
@@ -26,7 +26,7 @@ paths:
   /provideraccounts/{userid}:
     get:
       tags:
-        - developers
+        - provideraccounts
       description: get provideraccount of user
       operationId: provideraccount
       parameters:
@@ -48,7 +48,7 @@ paths:
   /values/consumption/hour/lastTimeStamp/{providerAccountId}/{datapointname}:
     get:
       tags:
-        - developers
+        - values
       description: get last timestamp of hour values of provideraccount and datapointname
       operationId: valuesConsumptionHourLastTimeStamp
       parameters:
@@ -75,7 +75,7 @@ paths:
   /values/consumption/day/lastTimeStamp/{providerAccountId}/{datapointname}:
     get:
       tags:
-        - developers
+        - values
       description: get last timestamp of day values of provideraccount and datapointname
       operationId: valuesConsumptionDayLastTimeStamp
       parameters:
@@ -102,7 +102,7 @@ paths:
   /values/consumption/month/lastTimeStamp/{providerAccountId}/{datapointname}:
     get:
       tags:
-        - developers
+        - values
       description: get last timestamp of month values of provideraccount and datapointname
       operationId: valuesConsumptionMonthLastTimeStamp
       parameters:
@@ -129,7 +129,7 @@ paths:
   /values/consumption/year/lastTimeStamp/{providerAccountId}/{datapointname}:
     get:
       tags:
-        - developers
+        - values
       description: get last timestamp of year values of provideraccount and datapointname
       operationId: valuesConsumptionYearLastTimeStamp
       parameters:
@@ -156,7 +156,7 @@ paths:
   /values/feedin/hour/lastTimeStamp/{providerAccountId}/{datapointname}:
     get:
       tags:
-        - developers
+        - values
       description: get last timestamp of hour values of provideraccount and datapointname
       operationId: valuesFeedinHourLastTimeStamp
       parameters:
@@ -183,7 +183,7 @@ paths:
   /values/feedin/day/lastTimeStamp/{providerAccountId}/{datapointname}:
     get:
       tags:
-        - developers
+        - values
       description: get last timestamp of day values of provideraccount and datapointname
       operationId: valuesFeedinDayLastTimeStamp
       parameters:
@@ -210,7 +210,7 @@ paths:
   /values/feedin/month/lastTimeStamp/{providerAccountId}/{datapointname}:
     get:
       tags:
-        - developers
+        - values
       description: get last timestamp of month values of provideraccount and datapointname
       operationId: valuesFeedinMonthLastTimeStamp
       parameters:
@@ -237,7 +237,7 @@ paths:
   /values/feedin/year/lastTimeStamp/{providerAccountId}/{datapointname}:
     get:
       tags:
-        - developers
+        - values
       description: get last timestamp of year values of provideraccount and datapointname
       operationId: valuesFeedinYearLastTimeStamp
       parameters:
@@ -264,7 +264,7 @@ paths:
   /values/consumption/hour:
     post:
       tags:
-        - developers
+        - values
       description: save consumption hour values
       operationId: valuesConsumptionHour
       requestBody:
@@ -282,7 +282,7 @@ paths:
   /values/consumption/day:
     post:
       tags:
-        - developers
+        - values
       description: save consumption day values
       operationId: valuesConsumptionDay
       requestBody:
@@ -300,7 +300,7 @@ paths:
   /values/consumption/month:
     post:
       tags:
-        - developers
+        - values
       description: save consumption month values
       operationId: valuesConsumptionMonth
       requestBody:
@@ -318,7 +318,7 @@ paths:
   /values/consumption/year:
     post:
       tags:
-        - developers
+        - values
       description: save consumption year values
       operationId: valuesConsumptionYear
       requestBody:
@@ -336,7 +336,7 @@ paths:
   /values/feedin/hour:
     post:
       tags:
-        - developers
+        - values
       description: save feedin hour values
       operationId: valuesFeedinHour
       requestBody:
@@ -354,7 +354,7 @@ paths:
   /values/feedin/day:
     post:
       tags:
-        - developers
+        - values
       description: save feedin day values
       operationId: valuesFeedinDay
       requestBody:
@@ -372,7 +372,7 @@ paths:
   /values/feedin/month:
     post:
       tags:
-        - developers
+        - values
       description: save feedin month values
       operationId: valuesFeedinMonth
       requestBody:
@@ -390,7 +390,7 @@ paths:
   /values/feedin/year:
     post:
       tags:
-        - developers
+        - values
       description: save feedin year values
       operationId: valuesFeedinYear
       requestBody:
@@ -426,7 +426,7 @@ paths:
   /users:
     get:
       tags:
-        - developers
+        - users
       description: get all users
       operationId: users
       responses:

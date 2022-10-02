@@ -49,7 +49,7 @@ public interface ProvideraccountsApi {
      * @param userid  (required)
      * @return successfully query (status code 200)
      */
-    @ApiOperation(value = "", nickname = "provideraccount", notes = "get all provider accounts", response = ProviderAccountObject.class, responseContainer = "List", tags={ "developers", })
+    @ApiOperation(value = "", nickname = "provideraccount", notes = "get provideraccount of user", response = ProviderAccountObject.class, responseContainer = "List", tags={ "provideraccounts", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = ProviderAccountObject.class, responseContainer = "List") })
     @GetMapping(
@@ -77,7 +77,7 @@ public interface ProvideraccountsApi {
      *
      * @return successfully query (status code 200)
      */
-    @ApiOperation(value = "", nickname = "provideraccounts", notes = "get all provider accounts", response = ProviderAccountObject.class, responseContainer = "List", tags={ "developers", })
+    @ApiOperation(value = "", nickname = "provideraccounts", notes = "get all provider accounts", response = ProviderAccountObject.class, responseContainer = "List", tags={ "provideraccounts", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = ProviderAccountObject.class, responseContainer = "List") })
     @GetMapping(

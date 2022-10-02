@@ -40,7 +40,7 @@ public interface ValuesApi {
      * @param timeValueObject  (required)
      * @return successfully saved (status code 200)
      */
-    @ApiOperation(value = "", nickname = "valuesConsumptionDay", notes = "save consumption day values", tags={ "developers", })
+    @ApiOperation(value = "", nickname = "valuesConsumptionDay", notes = "save consumption day values", tags={ "values", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully saved") })
     @PostMapping(
@@ -61,7 +61,7 @@ public interface ValuesApi {
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
-    @ApiOperation(value = "", nickname = "valuesConsumptionDayLastTimeStamp", notes = "get last timestamp of day values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "developers", })
+    @ApiOperation(value = "", nickname = "valuesConsumptionDayLastTimeStamp", notes = "get last timestamp of day values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "values", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
@@ -90,7 +90,7 @@ public interface ValuesApi {
      * @param timeValueObject  (required)
      * @return successfully saved (status code 200)
      */
-    @ApiOperation(value = "", nickname = "valuesConsumptionHour", notes = "save consumption hour values", tags={ "developers", })
+    @ApiOperation(value = "", nickname = "valuesConsumptionHour", notes = "save consumption hour values", tags={ "values", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully saved") })
     @PostMapping(
@@ -111,7 +111,7 @@ public interface ValuesApi {
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
-    @ApiOperation(value = "", nickname = "valuesConsumptionHourLastTimeStamp", notes = "get last timestamp of hour values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "developers", })
+    @ApiOperation(value = "", nickname = "valuesConsumptionHourLastTimeStamp", notes = "get last timestamp of hour values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "values", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
@@ -140,7 +140,7 @@ public interface ValuesApi {
      * @param timeValueObject  (required)
      * @return successfully saved (status code 200)
      */
-    @ApiOperation(value = "", nickname = "valuesConsumptionMonth", notes = "save consumption month values", tags={ "developers", })
+    @ApiOperation(value = "", nickname = "valuesConsumptionMonth", notes = "save consumption month values", tags={ "values", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully saved") })
     @PostMapping(
@@ -161,7 +161,7 @@ public interface ValuesApi {
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
-    @ApiOperation(value = "", nickname = "valuesConsumptionMonthLastTimeStamp", notes = "get last timestamp of month values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "developers", })
+    @ApiOperation(value = "", nickname = "valuesConsumptionMonthLastTimeStamp", notes = "get last timestamp of month values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "values", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
@@ -190,7 +190,7 @@ public interface ValuesApi {
      * @param timeValueObject  (required)
      * @return successfully saved (status code 200)
      */
-    @ApiOperation(value = "", nickname = "valuesConsumptionYear", notes = "save consumption year values", tags={ "developers", })
+    @ApiOperation(value = "", nickname = "valuesConsumptionYear", notes = "save consumption year values", tags={ "values", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully saved") })
     @PostMapping(
@@ -211,7 +211,7 @@ public interface ValuesApi {
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
-    @ApiOperation(value = "", nickname = "valuesConsumptionYearLastTimeStamp", notes = "get last timestamp of year values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "developers", })
+    @ApiOperation(value = "", nickname = "valuesConsumptionYearLastTimeStamp", notes = "get last timestamp of year values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "values", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
@@ -240,7 +240,7 @@ public interface ValuesApi {
      * @param timeValueObject  (required)
      * @return successfully saved (status code 200)
      */
-    @ApiOperation(value = "", nickname = "valuesFeedinDay", notes = "save feedin day values", tags={ "developers", })
+    @ApiOperation(value = "", nickname = "valuesFeedinDay", notes = "save feedin day values", tags={ "values", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully saved") })
     @PostMapping(
@@ -261,7 +261,7 @@ public interface ValuesApi {
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
-    @ApiOperation(value = "", nickname = "valuesFeedinDayLastTimeStamp", notes = "get last timestamp of day values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "developers", })
+    @ApiOperation(value = "", nickname = "valuesFeedinDayLastTimeStamp", notes = "get last timestamp of day values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "values", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
@@ -290,7 +290,7 @@ public interface ValuesApi {
      * @param timeValueObject  (required)
      * @return successfully saved (status code 200)
      */
-    @ApiOperation(value = "", nickname = "valuesFeedinHour", notes = "save feedin hour values", tags={ "developers", })
+    @ApiOperation(value = "", nickname = "valuesFeedinHour", notes = "save feedin hour values", tags={ "values", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully saved") })
     @PostMapping(
@@ -311,7 +311,7 @@ public interface ValuesApi {
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
-    @ApiOperation(value = "", nickname = "valuesFeedinHourLastTimeStamp", notes = "get last timestamp of hour values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "developers", })
+    @ApiOperation(value = "", nickname = "valuesFeedinHourLastTimeStamp", notes = "get last timestamp of hour values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "values", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
@@ -340,7 +340,7 @@ public interface ValuesApi {
      * @param timeValueObject  (required)
      * @return successfully saved (status code 200)
      */
-    @ApiOperation(value = "", nickname = "valuesFeedinMonth", notes = "save feedin month values", tags={ "developers", })
+    @ApiOperation(value = "", nickname = "valuesFeedinMonth", notes = "save feedin month values", tags={ "values", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully saved") })
     @PostMapping(
@@ -361,7 +361,7 @@ public interface ValuesApi {
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
-    @ApiOperation(value = "", nickname = "valuesFeedinMonthLastTimeStamp", notes = "get last timestamp of month values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "developers", })
+    @ApiOperation(value = "", nickname = "valuesFeedinMonthLastTimeStamp", notes = "get last timestamp of month values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "values", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
@@ -390,7 +390,7 @@ public interface ValuesApi {
      * @param timeValueObject  (required)
      * @return successfully saved (status code 200)
      */
-    @ApiOperation(value = "", nickname = "valuesFeedinYear", notes = "save feedin year values", tags={ "developers", })
+    @ApiOperation(value = "", nickname = "valuesFeedinYear", notes = "save feedin year values", tags={ "values", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully saved") })
     @PostMapping(
@@ -411,7 +411,7 @@ public interface ValuesApi {
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
-    @ApiOperation(value = "", nickname = "valuesFeedinYearLastTimeStamp", notes = "get last timestamp of year values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "developers", })
+    @ApiOperation(value = "", nickname = "valuesFeedinYearLastTimeStamp", notes = "get last timestamp of year values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "values", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
