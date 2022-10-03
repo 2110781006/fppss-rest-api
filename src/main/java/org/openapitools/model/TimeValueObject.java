@@ -1,15 +1,31 @@
 package org.openapitools.model;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
+
+import org.jooq.DSLContext;
+import org.jooq.Record;
+import org.jooq.Result;
+import org.jooq.Table;
+import org.jooq.exception.DataAccessException;
+import org.jooq.impl.DSL;
+import org.openapitools.DbConnector;
 import org.openapitools.jackson.nullable.JsonNullable;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+
+import static org.jooq.impl.DSL.field;
+import static org.jooq.impl.DSL.table;
 
 /**
  * TimeValueObject
@@ -19,6 +35,9 @@ public class TimeValueObject   {
   @JsonProperty("timestamp")
   @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime timestamp;
+
+  @JsonProperty("meeterId")
+  private String meeterId;
 
   @JsonProperty("datapointname")
   private String datapointname;
@@ -31,6 +50,9 @@ public class TimeValueObject   {
 
   @JsonProperty("counterValue")
   private BigDecimal counterValue;
+
+  @JsonProperty("feedin")
+  private Boolean feedin;
 
   public TimeValueObject timestamp(OffsetDateTime timestamp) {
     this.timestamp = timestamp;
@@ -51,6 +73,26 @@ public class TimeValueObject   {
 
   public void setTimestamp(OffsetDateTime timestamp) {
     this.timestamp = timestamp;
+  }
+
+  public TimeValueObject meeterId(String meeterId) {
+    this.meeterId = meeterId;
+    return this;
+  }
+
+  /**
+   * id of the meeter
+   * @return meeterId
+  */
+  @ApiModelProperty(example = "xyz", value = "id of the meeter")
+
+
+  public String getMeeterId() {
+    return meeterId;
+  }
+
+  public void setMeeterId(String meeterId) {
+    this.meeterId = meeterId;
   }
 
   public TimeValueObject datapointname(String datapointname) {
@@ -135,6 +177,26 @@ public class TimeValueObject   {
     this.counterValue = counterValue;
   }
 
+  public TimeValueObject feedin(Boolean feedin) {
+    this.feedin = feedin;
+    return this;
+  }
+
+  /**
+   * feedin value or consumption value
+   * @return feedin
+  */
+  @ApiModelProperty(example = "true", value = "feedin value or consumption value")
+
+
+  public Boolean getFeedin() {
+    return feedin;
+  }
+
+  public void setFeedin(Boolean feedin) {
+    this.feedin = feedin;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -146,15 +208,17 @@ public class TimeValueObject   {
     }
     TimeValueObject timeValueObject = (TimeValueObject) o;
     return Objects.equals(this.timestamp, timeValueObject.timestamp) &&
+        Objects.equals(this.meeterId, timeValueObject.meeterId) &&
         Objects.equals(this.datapointname, timeValueObject.datapointname) &&
         Objects.equals(this.providerAccountId, timeValueObject.providerAccountId) &&
         Objects.equals(this.value, timeValueObject.value) &&
-        Objects.equals(this.counterValue, timeValueObject.counterValue);
+        Objects.equals(this.counterValue, timeValueObject.counterValue) &&
+        Objects.equals(this.feedin, timeValueObject.feedin);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(timestamp, datapointname, providerAccountId, value, counterValue);
+    return Objects.hash(timestamp, meeterId, datapointname, providerAccountId, value, counterValue, feedin);
   }
 
   @Override
@@ -163,10 +227,12 @@ public class TimeValueObject   {
     sb.append("class TimeValueObject {\n");
     
     sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
+    sb.append("    meeterId: ").append(toIndentedString(meeterId)).append("\n");
     sb.append("    datapointname: ").append(toIndentedString(datapointname)).append("\n");
     sb.append("    providerAccountId: ").append(toIndentedString(providerAccountId)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    counterValue: ").append(toIndentedString(counterValue)).append("\n");
+    sb.append("    feedin: ").append(toIndentedString(feedin)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -182,9 +248,118 @@ public class TimeValueObject   {
     return o.toString().replace("\n", "\n    ");
   }
 
-  public static String getLastTimestamp()
+  /**
+   * Get timestamp of last timevalueobject
+   * @param resolution resolution
+   * @param providerAccountId provider account id
+   * @param datapointname datapointname
+   * @return last timestamp
+   */
+  public static OffsetDateTime getLastTimestamp(Resolution resolution, int providerAccountId, String meeterId, String datapointname) throws Exception
   {
-    return null;
+    DbConnector connector = new DbConnector(System.getenv("DB_URL"), System.getenv("DB_USER"), System.getenv("DB_PASSWORD"));
+
+    connector.open();//open databaseconnection
+
+    Connection conn = connector.getConnection();
+
+    DSLContext query = DSL.using(conn);
+
+    Table t = null;
+
+    switch (resolution)
+    {
+      case spontan: t = table("values_spontan"); break;
+      case hour: t = table("values_hour"); break;
+      case day: t = table("values_day"); break;
+      case month: t = table("values_month"); break;
+      case year: t = table("values_year"); break;
+    }
+
+    Result result = query
+            .select(field("stime"))
+            .from(t)
+            .where(field("datapoint_name").equal(datapointname))
+            .and(field("meeter_id").equal(meeterId))
+            .and(field("provider_account_id").equal(providerAccountId))
+            .orderBy(field("stime").desc())
+            .limit(1)
+            .fetch();
+
+    ArrayList<ProviderAccountObject> accounts = new ArrayList();
+
+    if ( result.isEmpty() )
+    {
+      conn.close();
+      return null;
+    }
+
+    Record record = (Record) result.get(0);
+
+    Timestamp tt = record.get(0, Timestamp.class);
+
+    OffsetDateTime ret = OffsetDateTime.ofInstant(tt.toInstant(), ZoneId.of("UTC"));
+
+    conn.close();//close databaseconnection
+    return ret;
+  }
+
+  public static void saveInDatabase(Resolution resolution, List<TimeValueObject> timeValueObjects) throws Exception
+  {
+      DbConnector connector = new DbConnector(System.getenv("DB_URL"), System.getenv("DB_USER"), System.getenv("DB_PASSWORD"));
+
+      connector.open();//open databaseconnection
+
+      Connection conn = connector.getConnection();
+
+      DSLContext query = DSL.using(conn);
+
+      Table t = null;
+
+      switch (resolution)
+      {
+        case spontan: t = table("values_spontan"); break;
+        case hour: t = table("values_hour"); break;
+        case day: t = table("values_day"); break;
+        case month: t = table("values_month"); break;
+        case year: t = table("values_year"); break;
+      }
+
+      for ( var timeValueObject : timeValueObjects )
+      {
+        try
+        {
+          query.insertInto(t)
+                  .columns(field("stime"), field("meeter_id"), field("datapoint_name"), field("provider_account_id"), field("value"), field("counter_value"), field("feedin"))
+                  .values(Timestamp.valueOf(LocalDateTime.ofInstant(timeValueObject.getTimestamp().toInstant(), ZoneOffset.UTC)),
+                          timeValueObject.getMeeterId(),
+                          timeValueObject.getDatapointname(),
+                          timeValueObject.getProviderAccountId(),
+                          timeValueObject.getValue(),
+                          timeValueObject.getCounterValue(),
+                          timeValueObject.getFeedin())
+                  .execute();
+        }
+        catch (Exception e)
+        {
+          if (e.getMessage().toUpperCase().contains("DUPLICATE"))
+          {
+            System.out.println("Entry already exist:"+ timeValueObjects.toString());
+          }
+        }
+      }
+
+      conn.close();//close databaseconnection
+  }
+
+  //resolution of timerange
+  public enum Resolution
+  {
+    spontan,
+    hour,
+    day,
+    month,
+    year
   }
 }
 

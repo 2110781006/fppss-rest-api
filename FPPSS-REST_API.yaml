@@ -45,7 +45,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/ProviderAccountObject"
 
-  /values/consumption/hour/lastTimeStamp/{providerAccountId}/{datapointname}:
+  /values/consumption/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
     get:
       tags:
         - values
@@ -57,6 +57,11 @@ paths:
           required: true
           schema:
             type: integer
+        - name: meeterId
+          in: path
+          required: true
+          schema:
+            type: string
         - name: datapointname
           in: path
           required: true
@@ -72,7 +77,7 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/consumption/day/lastTimeStamp/{providerAccountId}/{datapointname}:
+  /values/consumption/day/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
     get:
       tags:
         - values
@@ -84,6 +89,11 @@ paths:
           required: true
           schema:
             type: integer
+        - name: meeterId
+          in: path
+          required: true
+          schema:
+            type: string
         - name: datapointname
           in: path
           required: true
@@ -99,7 +109,7 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/consumption/month/lastTimeStamp/{providerAccountId}/{datapointname}:
+  /values/consumption/month/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
     get:
       tags:
         - values
@@ -111,6 +121,11 @@ paths:
           required: true
           schema:
             type: integer
+        - name: meeterId
+          in: path
+          required: true
+          schema:
+            type: string
         - name: datapointname
           in: path
           required: true
@@ -126,7 +141,7 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/consumption/year/lastTimeStamp/{providerAccountId}/{datapointname}:
+  /values/consumption/year/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
     get:
       tags:
         - values
@@ -138,6 +153,11 @@ paths:
           required: true
           schema:
             type: integer
+        - name: meeterId
+          in: path
+          required: true
+          schema:
+            type: string
         - name: datapointname
           in: path
           required: true
@@ -153,7 +173,7 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/feedin/hour/lastTimeStamp/{providerAccountId}/{datapointname}:
+  /values/feedin/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
     get:
       tags:
         - values
@@ -165,6 +185,11 @@ paths:
           required: true
           schema:
             type: integer
+        - name: meeterId
+          in: path
+          required: true
+          schema:
+            type: string
         - name: datapointname
           in: path
           required: true
@@ -180,7 +205,7 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/feedin/day/lastTimeStamp/{providerAccountId}/{datapointname}:
+  /values/feedin/day/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
     get:
       tags:
         - values
@@ -192,6 +217,11 @@ paths:
           required: true
           schema:
             type: integer
+        - name: meeterId
+          in: path
+          required: true
+          schema:
+            type: string
         - name: datapointname
           in: path
           required: true
@@ -207,7 +237,7 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/feedin/month/lastTimeStamp/{providerAccountId}/{datapointname}:
+  /values/feedin/month/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
     get:
       tags:
         - values
@@ -219,6 +249,11 @@ paths:
           required: true
           schema:
             type: integer
+        - name: meeterId
+          in: path
+          required: true
+          schema:
+            type: string
         - name: datapointname
           in: path
           required: true
@@ -234,7 +269,7 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/feedin/year/lastTimeStamp/{providerAccountId}/{datapointname}:
+  /values/feedin/year/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
     get:
       tags:
         - values
@@ -246,6 +281,11 @@ paths:
           required: true
           schema:
             type: integer
+        - name: meeterId
+          in: path
+          required: true
+          schema:
+            type: string
         - name: datapointname
           in: path
           required: true
@@ -475,6 +515,10 @@ components:
           format: date-time
           example: 2021-01-30T08:30:00Z
           description: timestamp of the value
+        meeterId:
+          type: string
+          example: xyz
+          description: id of the meeter
         datapointname:
           type: string
           example: xyz
@@ -491,6 +535,10 @@ components:
           type: number
           example: 1.13
           description: counter value of the smart meeter
+        feedin:
+          type: boolean
+          example: true
+          description: feedin value or consumption value
     ProviderAccountObject:
       type: object
       properties:

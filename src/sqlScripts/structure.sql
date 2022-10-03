@@ -58,60 +58,60 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Exportiere Struktur von Tabelle fppss-energy.values_day
 CREATE TABLE IF NOT EXISTS `values_day` (
-  `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `stime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `datapoint_name` varchar(40) COLLATE armscii8_bin NOT NULL,
   `provider_account_id` int(11) NOT NULL,
   `value` float DEFAULT NULL,
   `counter_value` float DEFAULT NULL,
-  PRIMARY KEY (`time`,`datapoint_name`,`provider_account_id`)
+  PRIMARY KEY (`stime`,`datapoint_name`,`provider_account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
 
 -- Daten Export vom Benutzer nicht ausgewählt
 
 -- Exportiere Struktur von Tabelle fppss-energy.values_hour
 CREATE TABLE IF NOT EXISTS `values_hour` (
-  `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `stime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `datapoint_name` varchar(40) COLLATE armscii8_bin NOT NULL,
   `provider_account_id` int(11) NOT NULL,
   `value` float DEFAULT NULL,
   `counter_value` float DEFAULT NULL,
-  PRIMARY KEY (`time`,`datapoint_name`,`provider_account_id`)
+  PRIMARY KEY (`stime`,`datapoint_name`,`provider_account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
 
 -- Daten Export vom Benutzer nicht ausgewählt
 
 -- Exportiere Struktur von Tabelle fppss-energy.values_month
 CREATE TABLE IF NOT EXISTS `values_month` (
-  `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `stime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `datapoint_name` varchar(40) COLLATE armscii8_bin NOT NULL,
   `provider_account_id` int(11) NOT NULL,
   `value` float DEFAULT NULL,
   `counter_value` float DEFAULT NULL,
-  PRIMARY KEY (`time`,`datapoint_name`,`provider_account_id`)
+  PRIMARY KEY (`stime`,`datapoint_name`,`provider_account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
 
 -- Daten Export vom Benutzer nicht ausgewählt
 
 -- Exportiere Struktur von Tabelle fppss-energy.values_spontan
 CREATE TABLE IF NOT EXISTS `values_spontan` (
-  `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `stime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `datapoint_name` varchar(40) COLLATE armscii8_bin NOT NULL,
   `provider_account_id` int(11) NOT NULL,
   `value` float DEFAULT NULL,
   `counter_value` float DEFAULT NULL,
-  PRIMARY KEY (`time`,`datapoint_name`,`provider_account_id`)
+  PRIMARY KEY (`stime`,`datapoint_name`,`provider_account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
 
 -- Daten Export vom Benutzer nicht ausgewählt
 
 -- Exportiere Struktur von Tabelle fppss-energy.values_year
 CREATE TABLE IF NOT EXISTS `values_year` (
-  `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `stime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `datapoint_name` varchar(40) COLLATE armscii8_bin NOT NULL,
   `provider_account_id` int(11) NOT NULL,
   `value` float DEFAULT NULL,
   `counter_value` float DEFAULT NULL,
-  PRIMARY KEY (`time`,`datapoint_name`,`provider_account_id`)
+  PRIMARY KEY (`stime`,`datapoint_name`,`provider_account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
 
 -- Daten Export vom Benutzer nicht ausgewählt

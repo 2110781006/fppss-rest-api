@@ -7,6 +7,8 @@ package org.openapitools.api;
 
 import java.util.List;
 import java.time.OffsetDateTime;
+
+import org.openapitools.model.ProviderAccountObject;
 import org.openapitools.model.TimeValueObject;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
@@ -47,17 +49,28 @@ public interface ValuesApi {
         value = "/values/consumption/day",
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> valuesConsumptionDay(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    default ResponseEntity<Void> valuesConsumptionDay(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject)
+    {
+        try
+        {
+            TimeValueObject.saveInDatabase(TimeValueObject.Resolution.day, timeValueObject);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
     }
 
 
     /**
-     * GET /values/consumption/day/lastTimeStamp/{providerAccountId}/{datapointname}
+     * GET /values/consumption/day/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
      * get last timestamp of day values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
+     * @param meeterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -65,20 +78,21 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/consumption/day/lastTimeStamp/{providerAccountId}/{datapointname}",
+        value = "/values/consumption/day/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesConsumptionDayLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
-        getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "\"2021-01-30T08:30:00Z\"";
-                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-            }
-        });
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    default ResponseEntity<OffsetDateTime> valuesConsumptionDayLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+
+        try
+        {
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.day, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 
     }
 
@@ -97,17 +111,28 @@ public interface ValuesApi {
         value = "/values/consumption/hour",
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> valuesConsumptionHour(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    default ResponseEntity<Void> valuesConsumptionHour(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject)
+    {
+        try
+        {
+            TimeValueObject.saveInDatabase(TimeValueObject.Resolution.hour, timeValueObject);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
     }
 
 
     /**
-     * GET /values/consumption/hour/lastTimeStamp/{providerAccountId}/{datapointname}
+     * GET /values/consumption/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
      * get last timestamp of hour values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
+     * @param meeterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -115,20 +140,21 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/consumption/hour/lastTimeStamp/{providerAccountId}/{datapointname}",
+        value = "/values/consumption/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesConsumptionHourLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
-        getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "\"2021-01-30T08:30:00Z\"";
-                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-            }
-        });
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    default ResponseEntity<OffsetDateTime> valuesConsumptionHourLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+
+        try
+        {
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.hour, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 
     }
 
@@ -147,17 +173,28 @@ public interface ValuesApi {
         value = "/values/consumption/month",
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> valuesConsumptionMonth(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    default ResponseEntity<Void> valuesConsumptionMonth(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject)
+    {
+        try
+        {
+            TimeValueObject.saveInDatabase(TimeValueObject.Resolution.month, timeValueObject);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
     }
 
 
     /**
-     * GET /values/consumption/month/lastTimeStamp/{providerAccountId}/{datapointname}
+     * GET /values/consumption/month/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
      * get last timestamp of month values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
+     * @param meeterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -165,20 +202,21 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/consumption/month/lastTimeStamp/{providerAccountId}/{datapointname}",
+        value = "/values/consumption/month/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesConsumptionMonthLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
-        getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "\"2021-01-30T08:30:00Z\"";
-                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-            }
-        });
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    default ResponseEntity<OffsetDateTime> valuesConsumptionMonthLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+
+        try
+        {
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.month, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 
     }
 
@@ -197,17 +235,28 @@ public interface ValuesApi {
         value = "/values/consumption/year",
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> valuesConsumptionYear(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    default ResponseEntity<Void> valuesConsumptionYear(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject)
+    {
+        try
+        {
+            TimeValueObject.saveInDatabase(TimeValueObject.Resolution.year, timeValueObject);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
     }
 
 
     /**
-     * GET /values/consumption/year/lastTimeStamp/{providerAccountId}/{datapointname}
+     * GET /values/consumption/year/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
      * get last timestamp of year values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
+     * @param meeterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -215,20 +264,21 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/consumption/year/lastTimeStamp/{providerAccountId}/{datapointname}",
+        value = "/values/consumption/year/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesConsumptionYearLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
-        getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "\"2021-01-30T08:30:00Z\"";
-                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-            }
-        });
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    default ResponseEntity<OffsetDateTime> valuesConsumptionYearLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+
+        try
+        {
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.year, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 
     }
 
@@ -247,17 +297,28 @@ public interface ValuesApi {
         value = "/values/feedin/day",
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> valuesFeedinDay(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    default ResponseEntity<Void> valuesFeedinDay(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject)
+    {
+        try
+        {
+            TimeValueObject.saveInDatabase(TimeValueObject.Resolution.day, timeValueObject);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
     }
 
 
     /**
-     * GET /values/feedin/day/lastTimeStamp/{providerAccountId}/{datapointname}
+     * GET /values/feedin/day/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
      * get last timestamp of day values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
+     * @param meeterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -265,20 +326,21 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/feedin/day/lastTimeStamp/{providerAccountId}/{datapointname}",
+        value = "/values/feedin/day/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesFeedinDayLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
-        getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "\"2021-01-30T08:30:00Z\"";
-                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-            }
-        });
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    default ResponseEntity<OffsetDateTime> valuesFeedinDayLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+
+        try
+        {
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.day, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 
     }
 
@@ -297,17 +359,28 @@ public interface ValuesApi {
         value = "/values/feedin/hour",
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> valuesFeedinHour(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    default ResponseEntity<Void> valuesFeedinHour(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject)
+    {
+        try
+        {
+            TimeValueObject.saveInDatabase(TimeValueObject.Resolution.day, timeValueObject);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
     }
 
 
     /**
-     * GET /values/feedin/hour/lastTimeStamp/{providerAccountId}/{datapointname}
+     * GET /values/feedin/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
      * get last timestamp of hour values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
+     * @param meeterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -315,20 +388,21 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/feedin/hour/lastTimeStamp/{providerAccountId}/{datapointname}",
+        value = "/values/feedin/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesFeedinHourLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
-        getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "\"2021-01-30T08:30:00Z\"";
-                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-            }
-        });
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    default ResponseEntity<OffsetDateTime> valuesFeedinHourLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+
+        try
+        {
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.hour, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 
     }
 
@@ -347,17 +421,28 @@ public interface ValuesApi {
         value = "/values/feedin/month",
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> valuesFeedinMonth(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    default ResponseEntity<Void> valuesFeedinMonth(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject)
+    {
+        try
+        {
+            TimeValueObject.saveInDatabase(TimeValueObject.Resolution.month, timeValueObject);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
     }
 
 
     /**
-     * GET /values/feedin/month/lastTimeStamp/{providerAccountId}/{datapointname}
+     * GET /values/feedin/month/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
      * get last timestamp of month values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
+     * @param meeterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -365,20 +450,21 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/feedin/month/lastTimeStamp/{providerAccountId}/{datapointname}",
+        value = "/values/feedin/month/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesFeedinMonthLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
-        getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "\"2021-01-30T08:30:00Z\"";
-                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-            }
-        });
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    default ResponseEntity<OffsetDateTime> valuesFeedinMonthLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+
+        try
+        {
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.month, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 
     }
 
@@ -397,17 +483,28 @@ public interface ValuesApi {
         value = "/values/feedin/year",
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> valuesFeedinYear(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    default ResponseEntity<Void> valuesFeedinYear(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject)
+    {
+        try
+        {
+            TimeValueObject.saveInDatabase(TimeValueObject.Resolution.year, timeValueObject);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
     }
 
 
     /**
-     * GET /values/feedin/year/lastTimeStamp/{providerAccountId}/{datapointname}
+     * GET /values/feedin/year/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
      * get last timestamp of year values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
+     * @param meeterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -415,20 +512,21 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/feedin/year/lastTimeStamp/{providerAccountId}/{datapointname}",
+        value = "/values/feedin/year/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesFeedinYearLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
-        getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "\"2021-01-30T08:30:00Z\"";
-                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-            }
-        });
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    default ResponseEntity<OffsetDateTime> valuesFeedinYearLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+
+        try
+        {
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.year, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 
     }
 
