@@ -1,9 +1,12 @@
 package org.openapitools.model;
 
+import java.io.ByteArrayOutputStream;
+import java.security.AlgorithmParameters;
+import java.security.SecureRandom;
+import java.security.spec.KeySpec;
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -13,6 +16,13 @@ import org.jooq.Record;
 import org.jooq.Result;
 import org.jooq.impl.DSL;
 import org.openapitools.DbConnector;
+
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 
 import static org.jooq.impl.DSL.*;
 
@@ -333,6 +343,43 @@ public class ProviderAccountObject   {
     conn.close();//close databaseconnection
 
     return accounts;
+  }
+
+  public String getEncryptedPw()
+  {
+    try
+    {
+      SecureRandom random = new SecureRandom();
+      byte[] salt = new byte[16];
+      random.nextBytes(salt);
+
+      SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+      KeySpec spec = new PBEKeySpec(System.getenv("FPPSS-KEY").toCharArray(), salt, 65536, 256);
+      SecretKey tmp = factory.generateSecret(spec);
+      SecretKey secret = new SecretKeySpec(tmp.getEncoded(), "AES");
+
+      Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+      cipher.init(Cipher.ENCRYPT_MODE, secret);
+      AlgorithmParameters params = cipher.getParameters();
+      byte[] iv = params.getParameterSpec(IvParameterSpec.class).getIV();
+      byte[] encryptedText = cipher.doFinal(this.providerAccountPassword.getBytes("UTF-8"));
+
+      // concatenate salt + iv + ciphertext
+      ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+      outputStream.write(salt);
+      outputStream.write(iv);
+      outputStream.write(encryptedText);
+
+      // properly encode the complete ciphertext
+      String s = new String(Base64.getEncoder().encodeToString(outputStream.toByteArray()));
+
+      return s;
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+    return null;
   }
 }
 
