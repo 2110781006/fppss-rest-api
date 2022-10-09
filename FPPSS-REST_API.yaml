@@ -173,6 +173,166 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
+  /values/production/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
+    get:
+      tags:
+        - values
+      description: get last timestamp of hour values of provideraccount and datapointname
+      operationId: valuesProductionHourLastTimeStamp
+      parameters:
+        - name: providerAccountId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: meeterId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: datapointname
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: string
+                format: date-time
+                example: 2021-01-30T08:30:00Z
+
+  /values/production/spontan/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
+    get:
+      tags:
+        - values
+      description: get last timestamp of spontan values of provideraccount and datapointname
+      operationId: valuesProductionSpontanLastTimeStamp
+      parameters:
+        - name: providerAccountId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: meeterId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: datapointname
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: string
+                format: date-time
+                example: 2021-01-30T08:30:00Z
+
+  /values/production/day/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
+    get:
+      tags:
+        - values
+      description: get last timestamp of day values of provideraccount and datapointname
+      operationId: valuesProductionDayLastTimeStamp
+      parameters:
+        - name: providerAccountId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: meeterId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: datapointname
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: string
+                format: date-time
+                example: 2021-01-30T08:30:00Z
+
+  /values/production/month/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
+    get:
+      tags:
+        - values
+      description: get last timestamp of month values of provideraccount and datapointname
+      operationId: valuesProductionMonthLastTimeStamp
+      parameters:
+        - name: providerAccountId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: meeterId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: datapointname
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: string
+                format: date-time
+                example: 2021-01-30T08:30:00Z
+
+  /values/production/year/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
+    get:
+      tags:
+        - values
+      description: get last timestamp of year values of provideraccount and datapointname
+      operationId: valuesProductionYearLastTimeStamp
+      parameters:
+        - name: providerAccountId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: meeterId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: datapointname
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: string
+                format: date-time
+                example: 2021-01-30T08:30:00Z
+
   /values/feedin/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
     get:
       tags:
@@ -373,6 +533,97 @@ paths:
             "200":
               description: successfully saved
 
+
+  /values/production/hour:
+    post:
+      tags:
+        - values
+      description: save production hour values
+      operationId: valuesProductionHour
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/TimeValueObject"
+        required: true
+      responses:
+        "200":
+          description: successfully saved
+
+  /values/production/spontan:
+    post:
+      tags:
+        - values
+      description: save production spontan values
+      operationId: valuesProductionSpontan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/TimeValueObject"
+        required: true
+      responses:
+        "200":
+          description: successfully saved
+
+  /values/production/day:
+    post:
+      tags:
+        - values
+      description: save production day values
+      operationId: valuesProductionDay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/TimeValueObject"
+        required: true
+      responses:
+        "200":
+          description: successfully saved
+
+  /values/production/month:
+    post:
+      tags:
+        - values
+      description: save production month values
+      operationId: valuesProductionMonth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/TimeValueObject"
+        required: true
+      responses:
+        "200":
+          description: successfully saved
+
+  /values/production/year:
+    post:
+      tags:
+        - values
+      description: save production year values
+      operationId: valuesProductionYear
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/TimeValueObject"
+        required: true
+      responses:
+        "200":
+          description: successfully saved
+
   /values/feedin/hour:
     post:
       tags:
@@ -444,24 +695,6 @@ paths:
       responses:
             "200":
               description: successfully saved
-
-  /consumption/saveYearValues:
-    post:
-      tags:
-        - developers
-      description: save year values in database
-      operationId: saveYearValues
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: "#/components/schemas/TimeValueObject"
-        required: true
-      responses:
-        "200":
-          description: successfully saved
 
   /users:
     get:
@@ -535,10 +768,10 @@ components:
           type: number
           example: 1.13
           description: counter value of the smart meeter
-        feedin:
-          type: boolean
-          example: true
-          description: feedin value or consumption value
+        type:
+          type: integer
+          example: 0 consumption, 1 feedin, 2 pruduction
+          description: feedin value,  consumption value or pruduction value
     ProviderAccountObject:
       type: object
       properties:

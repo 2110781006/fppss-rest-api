@@ -530,4 +530,318 @@ public interface ValuesApi {
 
     }
 
+
+    /**
+     * POST /values/production/day
+     * save production day values
+     *
+     * @param timeValueObject  (required)
+     * @return successfully saved (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesProductionDay", notes = "save production day values", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully saved") })
+    @PostMapping(
+        value = "/values/production/day",
+        consumes = { "application/json" }
+    )
+    default ResponseEntity<Void> valuesProductionDay(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject)
+    {
+        try
+        {
+            TimeValueObject.saveInDatabase(TimeValueObject.Resolution.day, timeValueObject);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * GET /values/production/day/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
+     * get last timestamp of day values of provideraccount and datapointname
+     *
+     * @param providerAccountId  (required)
+     * @param meeterId  (required)
+     * @param datapointname  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesProductionDayLastTimeStamp", notes = "get last timestamp of day values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
+    @GetMapping(
+        value = "/values/production/day/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<OffsetDateTime> valuesProductionDayLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+
+        try
+        {
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.day, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * POST /values/production/hour
+     * save production hour values
+     *
+     * @param timeValueObject  (required)
+     * @return successfully saved (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesProductionHour", notes = "save production hour values", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully saved") })
+    @PostMapping(
+        value = "/values/production/hour",
+        consumes = { "application/json" }
+    )
+    default ResponseEntity<Void> valuesProductionHour(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject)
+    {
+        try
+        {
+            TimeValueObject.saveInDatabase(TimeValueObject.Resolution.hour, timeValueObject);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * GET /values/production/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
+     * get last timestamp of hour values of provideraccount and datapointname
+     *
+     * @param providerAccountId  (required)
+     * @param meeterId  (required)
+     * @param datapointname  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesProductionHourLastTimeStamp", notes = "get last timestamp of hour values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
+    @GetMapping(
+        value = "/values/production/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<OffsetDateTime> valuesProductionHourLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+
+        try
+        {
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.hour, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * POST /values/production/month
+     * save production month values
+     *
+     * @param timeValueObject  (required)
+     * @return successfully saved (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesProductionMonth", notes = "save production month values", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully saved") })
+    @PostMapping(
+        value = "/values/production/month",
+        consumes = { "application/json" }
+    )
+    default ResponseEntity<Void> valuesProductionMonth(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject)
+    {
+        try
+        {
+            TimeValueObject.saveInDatabase(TimeValueObject.Resolution.month, timeValueObject);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * GET /values/production/month/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
+     * get last timestamp of month values of provideraccount and datapointname
+     *
+     * @param providerAccountId  (required)
+     * @param meeterId  (required)
+     * @param datapointname  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesProductionMonthLastTimeStamp", notes = "get last timestamp of month values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
+    @GetMapping(
+        value = "/values/production/month/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<OffsetDateTime> valuesProductionMonthLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+
+        try
+        {
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.month, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * POST /values/production/spontan
+     * save production spontan values
+     *
+     * @param timeValueObject  (required)
+     * @return successfully saved (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesProductionSpontan", notes = "save production spontan values", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully saved") })
+    @PostMapping(
+        value = "/values/production/spontan",
+        consumes = { "application/json" }
+    )
+    default ResponseEntity<Void> valuesProductionSpontan(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject)
+    {
+        try
+        {
+            TimeValueObject.saveInDatabase(TimeValueObject.Resolution.spontan, timeValueObject);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * GET /values/production/spontan/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
+     * get last timestamp of spontan values of provideraccount and datapointname
+     *
+     * @param providerAccountId  (required)
+     * @param meeterId  (required)
+     * @param datapointname  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesProductionSpontanLastTimeStamp", notes = "get last timestamp of spontan values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
+    @GetMapping(
+        value = "/values/production/spontan/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<OffsetDateTime> valuesProductionSpontanLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+        try
+        {
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.spontan, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * POST /values/production/year
+     * save production year values
+     *
+     * @param timeValueObject  (required)
+     * @return successfully saved (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesProductionYear", notes = "save production year values", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully saved") })
+    @PostMapping(
+        value = "/values/production/year",
+        consumes = { "application/json" }
+    )
+    default ResponseEntity<Void> valuesProductionYear(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject)
+    {
+        try
+        {
+            TimeValueObject.saveInDatabase(TimeValueObject.Resolution.year, timeValueObject);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * GET /values/production/year/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
+     * get last timestamp of year values of provideraccount and datapointname
+     *
+     * @param providerAccountId  (required)
+     * @param meeterId  (required)
+     * @param datapointname  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesProductionYearLastTimeStamp", notes = "get last timestamp of year values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
+    @GetMapping(
+        value = "/values/production/year/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<OffsetDateTime> valuesProductionYearLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+
+        try
+        {
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.year, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
 }

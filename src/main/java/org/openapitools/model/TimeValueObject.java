@@ -51,8 +51,8 @@ public class TimeValueObject   {
   @JsonProperty("counterValue")
   private BigDecimal counterValue;
 
-  @JsonProperty("feedin")
-  private Boolean feedin;
+  @JsonProperty("type")
+  private Integer type;
 
   public TimeValueObject timestamp(OffsetDateTime timestamp) {
     this.timestamp = timestamp;
@@ -177,24 +177,24 @@ public class TimeValueObject   {
     this.counterValue = counterValue;
   }
 
-  public TimeValueObject feedin(Boolean feedin) {
-    this.feedin = feedin;
+  public TimeValueObject type(Integer type) {
+    this.type = type;
     return this;
   }
 
   /**
-   * feedin value or consumption value
-   * @return feedin
+   * feedin value,  consumption value or pruduction value
+   * @return type
   */
-  @ApiModelProperty(example = "true", value = "feedin value or consumption value")
+  @ApiModelProperty(value = "feedin value,  consumption value or pruduction value")
 
 
-  public Boolean getFeedin() {
-    return feedin;
+  public Integer getType() {
+    return type;
   }
 
-  public void setFeedin(Boolean feedin) {
-    this.feedin = feedin;
+  public void setType(Integer type) {
+    this.type = type;
   }
 
 
@@ -213,12 +213,12 @@ public class TimeValueObject   {
         Objects.equals(this.providerAccountId, timeValueObject.providerAccountId) &&
         Objects.equals(this.value, timeValueObject.value) &&
         Objects.equals(this.counterValue, timeValueObject.counterValue) &&
-        Objects.equals(this.feedin, timeValueObject.feedin);
+        Objects.equals(this.type, timeValueObject.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(timestamp, meeterId, datapointname, providerAccountId, value, counterValue, feedin);
+    return Objects.hash(timestamp, meeterId, datapointname, providerAccountId, value, counterValue, type);
   }
 
   @Override
@@ -232,7 +232,7 @@ public class TimeValueObject   {
     sb.append("    providerAccountId: ").append(toIndentedString(providerAccountId)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    counterValue: ").append(toIndentedString(counterValue)).append("\n");
-    sb.append("    feedin: ").append(toIndentedString(feedin)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -330,14 +330,17 @@ public class TimeValueObject   {
         try
         {
           query.insertInto(t)
-                  .columns(field("stime"), field("meeter_id"), field("datapoint_name"), field("provider_account_id"), field("value"), field("counter_value"), field("feedin"))
+                  .columns(field("stime"), field("meeter_id"), field("datapoint_name"), field("provider_account_id"), field("value"), field("counter_value"), field("type"))
                   .values(Timestamp.valueOf(LocalDateTime.ofInstant(timeValueObject.getTimestamp().toInstant(), ZoneOffset.UTC)),
                           timeValueObject.getMeeterId(),
                           timeValueObject.getDatapointname(),
                           timeValueObject.getProviderAccountId(),
                           timeValueObject.getValue(),
                           timeValueObject.getCounterValue(),
-                          timeValueObject.getFeedin())
+                          timeValueObject.getType())
+                  .onDuplicateKeyUpdate()
+                  .set(field("value"),timeValueObject.getValue())
+                  .set(field("counter_value"), timeValueObject.getCounterValue())
                   .execute();
         }
         catch (Exception e)
