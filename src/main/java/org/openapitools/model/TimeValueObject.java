@@ -36,8 +36,8 @@ public class TimeValueObject   {
   @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime timestamp;
 
-  @JsonProperty("meeterId")
-  private String meeterId;
+  @JsonProperty("meterId")
+  private String meterId;
 
   @JsonProperty("datapointname")
   private String datapointname;
@@ -75,24 +75,24 @@ public class TimeValueObject   {
     this.timestamp = timestamp;
   }
 
-  public TimeValueObject meeterId(String meeterId) {
-    this.meeterId = meeterId;
+  public TimeValueObject meterId(String meterId) {
+    this.meterId = meterId;
     return this;
   }
 
   /**
-   * id of the meeter
-   * @return meeterId
+   * id of the meter
+   * @return meterId
   */
-  @ApiModelProperty(example = "xyz", value = "id of the meeter")
+  @ApiModelProperty(example = "xyz", value = "id of the meter")
 
 
-  public String getMeeterId() {
-    return meeterId;
+  public String getMeterId() {
+    return meterId;
   }
 
-  public void setMeeterId(String meeterId) {
-    this.meeterId = meeterId;
+  public void setMeterId(String meterId) {
+    this.meterId = meterId;
   }
 
   public TimeValueObject datapointname(String datapointname) {
@@ -162,10 +162,10 @@ public class TimeValueObject   {
   }
 
   /**
-   * counter value of the smart meeter
+   * counter value of the smart meter
    * @return counterValue
   */
-  @ApiModelProperty(example = "1.13", value = "counter value of the smart meeter")
+  @ApiModelProperty(example = "1.13", value = "counter value of the smart meter")
 
   @Valid
 
@@ -208,7 +208,7 @@ public class TimeValueObject   {
     }
     TimeValueObject timeValueObject = (TimeValueObject) o;
     return Objects.equals(this.timestamp, timeValueObject.timestamp) &&
-        Objects.equals(this.meeterId, timeValueObject.meeterId) &&
+        Objects.equals(this.meterId, timeValueObject.meterId) &&
         Objects.equals(this.datapointname, timeValueObject.datapointname) &&
         Objects.equals(this.providerAccountId, timeValueObject.providerAccountId) &&
         Objects.equals(this.value, timeValueObject.value) &&
@@ -218,7 +218,7 @@ public class TimeValueObject   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(timestamp, meeterId, datapointname, providerAccountId, value, counterValue, type);
+    return Objects.hash(timestamp, meterId, datapointname, providerAccountId, value, counterValue, type);
   }
 
   @Override
@@ -227,7 +227,7 @@ public class TimeValueObject   {
     sb.append("class TimeValueObject {\n");
     
     sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
-    sb.append("    meeterId: ").append(toIndentedString(meeterId)).append("\n");
+    sb.append("    meterId: ").append(toIndentedString(meterId)).append("\n");
     sb.append("    datapointname: ").append(toIndentedString(datapointname)).append("\n");
     sb.append("    providerAccountId: ").append(toIndentedString(providerAccountId)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
@@ -255,7 +255,7 @@ public class TimeValueObject   {
    * @param datapointname datapointname
    * @return last timestamp
    */
-  public static OffsetDateTime getLastTimestamp(Resolution resolution, int providerAccountId, String meeterId, String datapointname) throws Exception
+  public static OffsetDateTime getLastTimestamp(Resolution resolution, int providerAccountId, String meterId, String datapointname) throws Exception
   {
     DbConnector connector = new DbConnector(System.getenv("DB_URL"), System.getenv("DB_USER"), System.getenv("DB_PASSWORD"));
 
@@ -280,7 +280,7 @@ public class TimeValueObject   {
             .select(field("stime"))
             .from(t)
             .where(field("datapoint_name").equal(datapointname))
-            .and(field("meeter_id").equal(meeterId))
+            .and(field("meter_id").equal(meterId))
             .and(field("provider_account_id").equal(providerAccountId))
             .orderBy(field("stime").desc())
             .limit(1)
@@ -330,9 +330,9 @@ public class TimeValueObject   {
         try
         {
           query.insertInto(t)
-                  .columns(field("stime"), field("meeter_id"), field("datapoint_name"), field("provider_account_id"), field("value"), field("counter_value"), field("type"))
+                  .columns(field("stime"), field("meter_id"), field("datapoint_name"), field("provider_account_id"), field("value"), field("counter_value"), field("type"))
                   .values(Timestamp.valueOf(LocalDateTime.ofInstant(timeValueObject.getTimestamp().toInstant(), ZoneOffset.UTC)),
-                          timeValueObject.getMeeterId(),
+                          timeValueObject.getMeterId(),
                           timeValueObject.getDatapointname(),
                           timeValueObject.getProviderAccountId(),
                           timeValueObject.getValue(),

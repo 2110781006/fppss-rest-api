@@ -59,13 +59,13 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Exportiere Struktur von Tabelle fppss-energy.values_day
 CREATE TABLE IF NOT EXISTS `values_day` (
   `stime` timestamp NOT NULL DEFAULT current_timestamp(),
-  `meeter_id` varchar(60) COLLATE armscii8_bin NOT NULL,
+  `meter_id` varchar(60) COLLATE armscii8_bin NOT NULL,
   `datapoint_name` varchar(40) COLLATE armscii8_bin NOT NULL,
   `provider_account_id` int(11) NOT NULL,
   `value` float DEFAULT NULL,
   `counter_value` float DEFAULT NULL,
   `type` tinyint(1) NOT NULL,
-  PRIMARY KEY (`stime`,`meeter_id`,`datapoint_name`,`provider_account_id`) USING BTREE
+  PRIMARY KEY (`stime`,`meter_id`,`datapoint_name`,`provider_account_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
 
 -- Daten Export vom Benutzer nicht ausgewählt
@@ -73,13 +73,13 @@ CREATE TABLE IF NOT EXISTS `values_day` (
 -- Exportiere Struktur von Tabelle fppss-energy.values_hour
 CREATE TABLE IF NOT EXISTS `values_hour` (
   `stime` timestamp NOT NULL DEFAULT current_timestamp(),
-  `meeter_id` varchar(60) COLLATE armscii8_bin NOT NULL,
+  `meter_id` varchar(60) COLLATE armscii8_bin NOT NULL,
   `datapoint_name` varchar(40) COLLATE armscii8_bin NOT NULL,
   `provider_account_id` int(11) NOT NULL,
   `value` float DEFAULT NULL,
   `counter_value` float DEFAULT NULL,
   `type` tinyint(1) NOT NULL,
-  PRIMARY KEY (`stime`,`meeter_id`,`datapoint_name`,`provider_account_id`) USING BTREE
+  PRIMARY KEY (`stime`,`meter_id`,`datapoint_name`,`provider_account_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
 
 -- Daten Export vom Benutzer nicht ausgewählt
@@ -87,13 +87,13 @@ CREATE TABLE IF NOT EXISTS `values_hour` (
 -- Exportiere Struktur von Tabelle fppss-energy.values_month
 CREATE TABLE IF NOT EXISTS `values_month` (
   `stime` timestamp NOT NULL DEFAULT current_timestamp(),
-  `meeter_id` varchar(60) COLLATE armscii8_bin NOT NULL,
+  `meter_id` varchar(60) COLLATE armscii8_bin NOT NULL,
   `datapoint_name` varchar(40) COLLATE armscii8_bin NOT NULL,
   `provider_account_id` int(11) NOT NULL,
   `value` float DEFAULT NULL,
   `counter_value` float DEFAULT NULL,
   `type` tinyint(1) NOT NULL,
-  PRIMARY KEY (`stime`,`meeter_id`,`datapoint_name`,`provider_account_id`) USING BTREE
+  PRIMARY KEY (`stime`,`meter_id`,`datapoint_name`,`provider_account_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
 
 -- Daten Export vom Benutzer nicht ausgewählt
@@ -101,13 +101,13 @@ CREATE TABLE IF NOT EXISTS `values_month` (
 -- Exportiere Struktur von Tabelle fppss-energy.values_spontan
 CREATE TABLE IF NOT EXISTS `values_spontan` (
   `stime` timestamp NOT NULL DEFAULT current_timestamp(),
-  `meeter_id` varchar(60) COLLATE armscii8_bin NOT NULL,
+  `meter_id` varchar(60) COLLATE armscii8_bin NOT NULL,
   `datapoint_name` varchar(40) COLLATE armscii8_bin NOT NULL,
   `provider_account_id` int(11) NOT NULL,
   `value` float DEFAULT NULL,
   `counter_value` float DEFAULT NULL,
   `type` tinyint(1) NOT NULL,
-  PRIMARY KEY (`stime`,`meeter_id`,`datapoint_name`,`provider_account_id`) USING BTREE
+  PRIMARY KEY (`stime`,`meter_id`,`datapoint_name`,`provider_account_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
 
 -- Daten Export vom Benutzer nicht ausgewählt
@@ -115,13 +115,13 @@ CREATE TABLE IF NOT EXISTS `values_spontan` (
 -- Exportiere Struktur von Tabelle fppss-energy.values_year
 CREATE TABLE IF NOT EXISTS `values_year` (
   `stime` timestamp NOT NULL DEFAULT current_timestamp(),
-  `meeter_id` varchar(60) COLLATE armscii8_bin NOT NULL,
+  `meter_id` varchar(60) COLLATE armscii8_bin NOT NULL,
   `datapoint_name` varchar(40) COLLATE armscii8_bin NOT NULL,
   `provider_account_id` int(11) NOT NULL,
   `value` float DEFAULT NULL,
   `counter_value` float DEFAULT NULL,
   `type` tinyint(1) NOT NULL,
-  PRIMARY KEY (`stime`,`meeter_id`,`datapoint_name`,`provider_account_id`) USING BTREE
+  PRIMARY KEY (`stime`,`meter_id`,`datapoint_name`,`provider_account_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
 
 -- Daten Export vom Benutzer nicht ausgewählt

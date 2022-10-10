@@ -66,11 +66,11 @@ public interface ValuesApi {
 
 
     /**
-     * GET /values/consumption/day/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
+     * GET /values/consumption/day/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}
      * get last timestamp of day values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
-     * @param meeterId  (required)
+     * @param meterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -78,14 +78,14 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/consumption/day/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
+        value = "/values/consumption/day/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesConsumptionDayLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+    default ResponseEntity<OffsetDateTime> valuesConsumptionDayLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meterId") String meterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
 
         try
         {
-            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.day, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.day, providerAccountId, meterId, datapointname), HttpStatus.OK);
         }
         catch (Exception e)
         {
@@ -128,11 +128,11 @@ public interface ValuesApi {
 
 
     /**
-     * GET /values/consumption/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
+     * GET /values/consumption/hour/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}
      * get last timestamp of hour values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
-     * @param meeterId  (required)
+     * @param meterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -140,14 +140,14 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/consumption/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
+        value = "/values/consumption/hour/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesConsumptionHourLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+    default ResponseEntity<OffsetDateTime> valuesConsumptionHourLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meterId") String meterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
 
         try
         {
-            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.hour, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.hour, providerAccountId, meterId, datapointname), HttpStatus.OK);
         }
         catch (Exception e)
         {
@@ -190,11 +190,11 @@ public interface ValuesApi {
 
 
     /**
-     * GET /values/consumption/month/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
+     * GET /values/consumption/month/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}
      * get last timestamp of month values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
-     * @param meeterId  (required)
+     * @param meterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -202,14 +202,14 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/consumption/month/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
+        value = "/values/consumption/month/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesConsumptionMonthLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+    default ResponseEntity<OffsetDateTime> valuesConsumptionMonthLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meterId") String meterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
 
         try
         {
-            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.month, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.month, providerAccountId, meterId, datapointname), HttpStatus.OK);
         }
         catch (Exception e)
         {
@@ -252,11 +252,11 @@ public interface ValuesApi {
 
 
     /**
-     * GET /values/consumption/year/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
+     * GET /values/consumption/year/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}
      * get last timestamp of year values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
-     * @param meeterId  (required)
+     * @param meterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -264,14 +264,14 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/consumption/year/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
+        value = "/values/consumption/year/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesConsumptionYearLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+    default ResponseEntity<OffsetDateTime> valuesConsumptionYearLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meterId") String meterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
 
         try
         {
-            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.year, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.year, providerAccountId, meterId, datapointname), HttpStatus.OK);
         }
         catch (Exception e)
         {
@@ -314,11 +314,11 @@ public interface ValuesApi {
 
 
     /**
-     * GET /values/feedin/day/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
+     * GET /values/feedin/day/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}
      * get last timestamp of day values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
-     * @param meeterId  (required)
+     * @param meterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -326,14 +326,14 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/feedin/day/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
+        value = "/values/feedin/day/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesFeedinDayLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+    default ResponseEntity<OffsetDateTime> valuesFeedinDayLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meterId") String meterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
 
         try
         {
-            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.day, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.day, providerAccountId, meterId, datapointname), HttpStatus.OK);
         }
         catch (Exception e)
         {
@@ -376,11 +376,11 @@ public interface ValuesApi {
 
 
     /**
-     * GET /values/feedin/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
+     * GET /values/feedin/hour/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}
      * get last timestamp of hour values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
-     * @param meeterId  (required)
+     * @param meterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -388,14 +388,14 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/feedin/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
+        value = "/values/feedin/hour/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesFeedinHourLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+    default ResponseEntity<OffsetDateTime> valuesFeedinHourLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meterId") String meterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
 
         try
         {
-            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.hour, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.hour, providerAccountId, meterId, datapointname), HttpStatus.OK);
         }
         catch (Exception e)
         {
@@ -438,11 +438,11 @@ public interface ValuesApi {
 
 
     /**
-     * GET /values/feedin/month/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
+     * GET /values/feedin/month/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}
      * get last timestamp of month values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
-     * @param meeterId  (required)
+     * @param meterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -450,14 +450,14 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/feedin/month/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
+        value = "/values/feedin/month/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesFeedinMonthLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+    default ResponseEntity<OffsetDateTime> valuesFeedinMonthLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meterId") String meterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
 
         try
         {
-            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.month, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.month, providerAccountId, meterId, datapointname), HttpStatus.OK);
         }
         catch (Exception e)
         {
@@ -500,11 +500,11 @@ public interface ValuesApi {
 
 
     /**
-     * GET /values/feedin/year/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
+     * GET /values/feedin/year/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}
      * get last timestamp of year values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
-     * @param meeterId  (required)
+     * @param meterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -512,14 +512,14 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/feedin/year/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
+        value = "/values/feedin/year/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesFeedinYearLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+    default ResponseEntity<OffsetDateTime> valuesFeedinYearLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meterId") String meterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
 
         try
         {
-            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.year, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.year, providerAccountId, meterId, datapointname), HttpStatus.OK);
         }
         catch (Exception e)
         {
@@ -563,11 +563,11 @@ public interface ValuesApi {
 
 
     /**
-     * GET /values/production/day/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
+     * GET /values/production/day/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}
      * get last timestamp of day values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
-     * @param meeterId  (required)
+     * @param meterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -575,14 +575,14 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/production/day/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
+        value = "/values/production/day/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesProductionDayLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+    default ResponseEntity<OffsetDateTime> valuesProductionDayLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meterId") String meterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
 
         try
         {
-            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.day, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.day, providerAccountId, meterId, datapointname), HttpStatus.OK);
         }
         catch (Exception e)
         {
@@ -626,11 +626,11 @@ public interface ValuesApi {
 
 
     /**
-     * GET /values/production/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
+     * GET /values/production/hour/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}
      * get last timestamp of hour values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
-     * @param meeterId  (required)
+     * @param meterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -638,14 +638,14 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/production/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
+        value = "/values/production/hour/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesProductionHourLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+    default ResponseEntity<OffsetDateTime> valuesProductionHourLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meterId") String meterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
 
         try
         {
-            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.hour, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.hour, providerAccountId, meterId, datapointname), HttpStatus.OK);
         }
         catch (Exception e)
         {
@@ -689,11 +689,11 @@ public interface ValuesApi {
 
 
     /**
-     * GET /values/production/month/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
+     * GET /values/production/month/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}
      * get last timestamp of month values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
-     * @param meeterId  (required)
+     * @param meterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -701,14 +701,14 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/production/month/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
+        value = "/values/production/month/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesProductionMonthLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+    default ResponseEntity<OffsetDateTime> valuesProductionMonthLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meterId") String meterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
 
         try
         {
-            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.month, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.month, providerAccountId, meterId, datapointname), HttpStatus.OK);
         }
         catch (Exception e)
         {
@@ -752,11 +752,11 @@ public interface ValuesApi {
 
 
     /**
-     * GET /values/production/spontan/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
+     * GET /values/production/spontan/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}
      * get last timestamp of spontan values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
-     * @param meeterId  (required)
+     * @param meterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -764,13 +764,13 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/production/spontan/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
+        value = "/values/production/spontan/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesProductionSpontanLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+    default ResponseEntity<OffsetDateTime> valuesProductionSpontanLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meterId") String meterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
         try
         {
-            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.spontan, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.spontan, providerAccountId, meterId, datapointname), HttpStatus.OK);
         }
         catch (Exception e)
         {
@@ -814,11 +814,11 @@ public interface ValuesApi {
 
 
     /**
-     * GET /values/production/year/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}
+     * GET /values/production/year/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}
      * get last timestamp of year values of provideraccount and datapointname
      *
      * @param providerAccountId  (required)
-     * @param meeterId  (required)
+     * @param meterId  (required)
      * @param datapointname  (required)
      * @return successfully query (status code 200)
      */
@@ -826,14 +826,14 @@ public interface ValuesApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
     @GetMapping(
-        value = "/values/production/year/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}",
+        value = "/values/production/year/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OffsetDateTime> valuesProductionYearLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meeterId") String meeterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+    default ResponseEntity<OffsetDateTime> valuesProductionYearLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meterId") String meterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
 
         try
         {
-            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.year, providerAccountId, meeterId, datapointname), HttpStatus.OK);
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.year, providerAccountId, meterId, datapointname), HttpStatus.OK);
         }
         catch (Exception e)
         {
