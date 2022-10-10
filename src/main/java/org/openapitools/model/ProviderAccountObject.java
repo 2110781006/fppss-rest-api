@@ -251,7 +251,7 @@ public class ProviderAccountObject   {
    */
   public static ArrayList<ProviderAccountObject> getProviderAccounts() throws Exception
   {
-    DbConnector connector = new DbConnector(System.getenv("DB_URL"), System.getenv("DB_USER"), System.getenv("DB_PASSWORD"));
+    DbConnector connector = new DbConnector(System.getenv("FPPSS_DB_URL"), System.getenv("FPPSS_DB_USER"), System.getenv("FPPSS_DB_PASSWORD"));
 
     connector.open();//open databaseconnection
 
@@ -301,7 +301,7 @@ public class ProviderAccountObject   {
    */
   public static ArrayList<ProviderAccountObject> getProviderAccounts(int userId) throws Exception
   {
-    DbConnector connector = new DbConnector(System.getenv("DB_URL"), System.getenv("DB_USER"), System.getenv("DB_PASSWORD"));
+    DbConnector connector = new DbConnector(System.getenv("FPPSS_DB_URL"), System.getenv("FPPSS_DB_USER"), System.getenv("FPPSS_DB_PASSWORD"));
 
     connector.open();//open database connection
 

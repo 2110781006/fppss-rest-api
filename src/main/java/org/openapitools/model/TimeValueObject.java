@@ -254,7 +254,7 @@ public class TimeValueObject   {
    */
   public static OffsetDateTime getLastTimestamp(Resolution resolution, int providerAccountId, String meterId, String datapointname) throws Exception
   {
-    DbConnector connector = new DbConnector(System.getenv("DB_URL"), System.getenv("DB_USER"), System.getenv("DB_PASSWORD"));
+    DbConnector connector = new DbConnector(System.getenv("FPPSS_DB_URL"), System.getenv("FPPSS_DB_USER"), System.getenv("FPPSS_DB_PASSWORD"));
 
     connector.open();//open databaseconnection
 
@@ -303,7 +303,7 @@ public class TimeValueObject   {
 
   public static void saveInDatabase(Resolution resolution, List<TimeValueObject> timeValueObjects) throws Exception
   {
-      DbConnector connector = new DbConnector(System.getenv("DB_URL"), System.getenv("DB_USER"), System.getenv("DB_PASSWORD"));
+      DbConnector connector = new DbConnector(System.getenv("FPPSS_DB_URL"), System.getenv("FPPSS_DB_USER"), System.getenv("FPPSS_DB_PASSWORD"));
 
       connector.open();//open databaseconnection
 
