@@ -21,8 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static org.jooq.impl.DSL.field;
-import static org.jooq.impl.DSL.table;
+import static org.jooq.impl.DSL.*;
 
 /**
  * TimeValueObject
@@ -312,6 +311,7 @@ public class TimeValueObject   {
       DSLContext query = DSL.using(conn);
 
       Table t = null;
+      String primaryKey = "";
 
       switch (resolution)
       {
@@ -320,6 +320,15 @@ public class TimeValueObject   {
         case day: t = table("values_day"); break;
         case month: t = table("values_month"); break;
         case year: t = table("values_year"); break;
+      }
+
+      switch (resolution)
+      {
+        case spontan: primaryKey = "values_spontan_pk"; break;
+        case hour: primaryKey = "values_hour_pk"; break;
+        case day: primaryKey = "values_day_pk"; break;
+        case month: primaryKey = "values_month_pk"; break;
+        case year: primaryKey = "values_year_pk"; break;
       }
 
       for ( var timeValueObject : timeValueObjects )
@@ -335,7 +344,9 @@ public class TimeValueObject   {
                           timeValueObject.getValue(),
                           timeValueObject.getCounterValue(),
                           timeValueObject.getType())
-                  .onDuplicateKeyUpdate()
+                  .onConflictOnConstraint(constraint(primaryKey))
+                  .doUpdate()
+                  //.onDuplicateKeyUpdate()
                   .set(field("value"),timeValueObject.getValue())
                   .set(field("counter_value"), timeValueObject.getCounterValue())
                   .execute();
@@ -346,6 +357,8 @@ public class TimeValueObject   {
           {
             System.out.println("Entry already exist:"+ timeValueObjects.toString());
           }
+          else
+            e.printStackTrace();
         }
       }
 
