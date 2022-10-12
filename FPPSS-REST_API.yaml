@@ -45,7 +45,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/ProviderAccountObject"
 
-  /values/consumption/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
+  /values/consumption/hour/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}:
     get:
       tags:
         - values
@@ -57,7 +57,7 @@ paths:
           required: true
           schema:
             type: integer
-        - name: meeterId
+        - name: meterId
           in: path
           required: true
           schema:
@@ -77,7 +77,39 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/consumption/day/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
+  /values/consumption/spontan/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}:
+    get:
+      tags:
+        - values
+      description: get last timestamp of spontan values of provideraccount and datapointname
+      operationId: valuesConsumptionSpontanLastTimeStamp
+      parameters:
+        - name: providerAccountId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: meterId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: datapointname
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: string
+                format: date-time
+                example: 2021-01-30T08:30:00Z
+
+  /values/consumption/day/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}:
     get:
       tags:
         - values
@@ -89,7 +121,7 @@ paths:
           required: true
           schema:
             type: integer
-        - name: meeterId
+        - name: meterId
           in: path
           required: true
           schema:
@@ -109,7 +141,7 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/consumption/month/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
+  /values/consumption/month/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}:
     get:
       tags:
         - values
@@ -121,7 +153,7 @@ paths:
           required: true
           schema:
             type: integer
-        - name: meeterId
+        - name: meterId
           in: path
           required: true
           schema:
@@ -141,7 +173,7 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/consumption/year/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
+  /values/consumption/year/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}:
     get:
       tags:
         - values
@@ -153,7 +185,7 @@ paths:
           required: true
           schema:
             type: integer
-        - name: meeterId
+        - name: meterId
           in: path
           required: true
           schema:
@@ -173,7 +205,7 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/production/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
+  /values/production/hour/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}:
     get:
       tags:
         - values
@@ -185,7 +217,7 @@ paths:
           required: true
           schema:
             type: integer
-        - name: meeterId
+        - name: meterId
           in: path
           required: true
           schema:
@@ -205,7 +237,7 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/production/spontan/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
+  /values/production/spontan/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}:
     get:
       tags:
         - values
@@ -217,7 +249,7 @@ paths:
           required: true
           schema:
             type: integer
-        - name: meeterId
+        - name: meterId
           in: path
           required: true
           schema:
@@ -237,7 +269,7 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/production/day/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
+  /values/production/day/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}:
     get:
       tags:
         - values
@@ -249,7 +281,7 @@ paths:
           required: true
           schema:
             type: integer
-        - name: meeterId
+        - name: meterId
           in: path
           required: true
           schema:
@@ -269,7 +301,7 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/production/month/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
+  /values/production/month/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}:
     get:
       tags:
         - values
@@ -281,7 +313,7 @@ paths:
           required: true
           schema:
             type: integer
-        - name: meeterId
+        - name: meterId
           in: path
           required: true
           schema:
@@ -301,7 +333,7 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/production/year/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
+  /values/production/year/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}:
     get:
       tags:
         - values
@@ -313,7 +345,7 @@ paths:
           required: true
           schema:
             type: integer
-        - name: meeterId
+        - name: meterId
           in: path
           required: true
           schema:
@@ -333,7 +365,7 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/feedin/hour/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
+  /values/feedin/hour/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}:
     get:
       tags:
         - values
@@ -345,7 +377,7 @@ paths:
           required: true
           schema:
             type: integer
-        - name: meeterId
+        - name: meterId
           in: path
           required: true
           schema:
@@ -365,7 +397,39 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/feedin/day/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
+  /values/feedin/spontan/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}:
+    get:
+      tags:
+        - values
+      description: get last timestamp of spontan values of provideraccount and datapointname
+      operationId: valuesFeedinSpontanLastTimeStamp
+      parameters:
+        - name: providerAccountId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: meterId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: datapointname
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: string
+                format: date-time
+                example: 2021-01-30T08:30:00Z
+
+  /values/feedin/day/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}:
     get:
       tags:
         - values
@@ -377,7 +441,7 @@ paths:
           required: true
           schema:
             type: integer
-        - name: meeterId
+        - name: meterId
           in: path
           required: true
           schema:
@@ -397,7 +461,7 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/feedin/month/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
+  /values/feedin/month/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}:
     get:
       tags:
         - values
@@ -409,7 +473,7 @@ paths:
           required: true
           schema:
             type: integer
-        - name: meeterId
+        - name: meterId
           in: path
           required: true
           schema:
@@ -429,7 +493,7 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
-  /values/feedin/year/lastTimeStamp/{providerAccountId}/{meeterId}/{datapointname}:
+  /values/feedin/year/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}:
     get:
       tags:
         - values
@@ -441,7 +505,7 @@ paths:
           required: true
           schema:
             type: integer
-        - name: meeterId
+        - name: meterId
           in: path
           required: true
           schema:
@@ -496,6 +560,24 @@ paths:
       responses:
             "200":
               description: successfully saved
+
+  /values/consumption/spontan:
+    post:
+      tags:
+        - values
+      description: save consumption spontan values
+      operationId: valuesConsumptionSpontan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/TimeValueObject"
+        required: true
+      responses:
+        "200":
+          description: successfully saved
 
   /values/consumption/month:
     post:
@@ -641,6 +723,23 @@ paths:
       responses:
             "200":
               description: successfully saved
+  /values/feedin/spontan:
+    post:
+      tags:
+        - values
+      description: save feedin spontan values
+      operationId: valuesFeedinSpontan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/TimeValueObject"
+        required: true
+      responses:
+        "200":
+          description: successfully saved
 
   /values/feedin/day:
     post:
@@ -748,10 +847,10 @@ components:
           format: date-time
           example: 2021-01-30T08:30:00Z
           description: timestamp of the value
-        meeterId:
+        meterId:
           type: string
           example: xyz
-          description: id of the meeter
+          description: id of the meter
         datapointname:
           type: string
           example: xyz
@@ -767,7 +866,7 @@ components:
         counterValue:
           type: number
           example: 1.13
-          description: counter value of the smart meeter
+          description: counter value of the smart meter
         type:
           type: integer
           example: 0 consumption, 1 feedin, 2 pruduction

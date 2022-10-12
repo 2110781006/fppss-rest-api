@@ -216,6 +216,69 @@ public interface ValuesApi {
 
 
     /**
+     * POST /values/consumption/spontan
+     * save consumption spontan values
+     *
+     * @param timeValueObject  (required)
+     * @return successfully saved (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesConsumptionSpontan", notes = "save consumption spontan values", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully saved") })
+    @PostMapping(
+        value = "/values/consumption/spontan",
+        consumes = { "application/json" }
+    )
+    default ResponseEntity<Void> valuesConsumptionSpontan(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject)
+    {
+        try
+        {
+            TimeValueObject.saveInDatabase(TimeValueObject.Resolution.spontan, timeValueObject);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * GET /values/consumption/spontan/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}
+     * get last timestamp of spontan values of provideraccount and datapointname
+     *
+     * @param providerAccountId  (required)
+     * @param meterId  (required)
+     * @param datapointname  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesConsumptionSpontanLastTimeStamp", notes = "get last timestamp of spontan values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
+    @GetMapping(
+        value = "/values/consumption/spontan/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<OffsetDateTime> valuesConsumptionSpontanLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meterId") String meterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+
+        try
+        {
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.spontan, providerAccountId, meterId, datapointname), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
      * POST /values/consumption/year
      * save consumption year values
      *
@@ -357,7 +420,7 @@ public interface ValuesApi {
     {
         try
         {
-            TimeValueObject.saveInDatabase(TimeValueObject.Resolution.day, timeValueObject);
+            TimeValueObject.saveInDatabase(TimeValueObject.Resolution.hour, timeValueObject);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         catch (Exception e)
@@ -452,6 +515,69 @@ public interface ValuesApi {
         try
         {
             return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.month, providerAccountId, meterId, datapointname), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * POST /values/feedin/spontan
+     * save feedin spontan values
+     *
+     * @param timeValueObject  (required)
+     * @return successfully saved (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesFeedinSpontan", notes = "save feedin spontan values", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully saved") })
+    @PostMapping(
+        value = "/values/feedin/spontan",
+        consumes = { "application/json" }
+    )
+    default ResponseEntity<Void> valuesFeedinSpontan(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<TimeValueObject> timeValueObject)
+    {
+        try
+        {
+            TimeValueObject.saveInDatabase(TimeValueObject.Resolution.spontan, timeValueObject);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * GET /values/feedin/spontan/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}
+     * get last timestamp of spontan values of provideraccount and datapointname
+     *
+     * @param providerAccountId  (required)
+     * @param meterId  (required)
+     * @param datapointname  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesFeedinSpontanLastTimeStamp", notes = "get last timestamp of spontan values of provideraccount and datapointname", response = OffsetDateTime.class, tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = OffsetDateTime.class) })
+    @GetMapping(
+        value = "/values/feedin/spontan/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<OffsetDateTime> valuesFeedinSpontanLastTimeStamp(@ApiParam(value = "",required=true) @PathVariable("providerAccountId") Integer providerAccountId,@ApiParam(value = "",required=true) @PathVariable("meterId") String meterId,@ApiParam(value = "",required=true) @PathVariable("datapointname") String datapointname) {
+
+        try
+        {
+            return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.spontan, providerAccountId, meterId, datapointname), HttpStatus.OK);
         }
         catch (Exception e)
         {
