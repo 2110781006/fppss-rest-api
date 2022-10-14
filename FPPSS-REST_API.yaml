@@ -810,6 +810,17 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/UserObject"
+
+  /healthcheck:
+    get:
+      tags:
+        - status
+      description: healthcheck
+      operationId: healthcheck
+      responses:
+        "200":
+          description: "healthcheck"
+
 servers:
   - url: https://localhost:8080/api/v1
   - url: http://localhost:8080/api/v1
