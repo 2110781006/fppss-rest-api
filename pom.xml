@@ -10,12 +10,14 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <springfox-version>2.9.2</springfox-version>
+        <createDatabase>false</createDatabase>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.3.RELEASE</version>
     </parent>
+
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
@@ -36,10 +38,11 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>3.0</version>
 
+
                 <!-- Note that we're executing the Flyway plugin in the "generate-sources" phase -->
                 <executions>
                     <execution>
-                        <phase>generate-sources</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>migrate</goal>
                         </goals>
