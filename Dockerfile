@@ -5,6 +5,5 @@ RUN mvn -f /app/pom.xml clean package
 
 FROM openjdk:11-jre-slim
 COPY --from=build /app/target/openapi-spring-1.0.0.jar /usr/local/lib/app.jar
-COPY --from=build /app/pom.xml /app/pom.xml
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","/usr/local/lib/app.jar"]
