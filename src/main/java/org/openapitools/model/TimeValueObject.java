@@ -12,6 +12,7 @@ import org.openapitools.DbConnector;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -365,6 +366,75 @@ public class TimeValueObject   {
       conn.close();//close databaseconnection
   }
 
+  public static List<TimeValueObject> readValuesFromDatabase(Resolution resolution, Type type, Integer userId, LocalDateTime startdate, LocalDateTime enddate) throws Exception
+  {
+    DbConnector connector = new DbConnector(System.getenv("FPPSS_DB_URL"), System.getenv("FPPSS_DB_USER"), System.getenv("FPPSS_DB_PASSWORD"));
+
+    connector.open();//open databaseconnection
+
+    Connection conn = connector.getConnection();
+
+    DSLContext query = DSL.using(conn);
+
+    Table t = null;
+
+    switch (resolution)
+    {
+      case spontan: t = table("values_spontan"); break;
+      case hour: t = table("values_hour"); break;
+      case day: t = table("values_day"); break;
+      case month: t = table("values_month"); break;
+      case year: t = table("values_year"); break;
+    }
+
+    Result result = query
+            .select(field("v.counter_value"),field("v.datapoint_name"),field("v.meter_id"),
+                    field("v.provider_account_id"), field("v.stime"),field("v.type"), field("v.value"))
+            .from(t.as("v"))
+            .join(table("provider_accounts").as("pa")).on(field("v.provider_account_id").equal(field("pa.id")))
+            .join(table("provider").as("p")).on(field("pa.provider_id").equal(field("p.id")))
+            .join(table("users").as("u")).on(field("pa.user_id").equal(field("u.id")))
+            .where(field("u.id").equal(userId))
+            .and(field("v.type").equal(type.ordinal()))
+            .and(field("stime").greaterOrEqual(startdate))
+            .and(field("stime").lessThan(enddate))
+            .orderBy(field("v.stime").asc())
+            .fetch();
+
+    List<TimeValueObject> values = new ArrayList<>();
+
+    if ( result.isEmpty() )
+    {
+      conn.close();
+      return null;
+    }
+
+    for ( int i = 0; i < result.size(); i++ )
+    {
+      Record record = (Record) result.get(i);
+
+      var tvo = new TimeValueObject();
+      tvo.setCounterValue(record.get(field("v.counter_value"), BigDecimal.class));
+      tvo.setDatapointname(record.get(field("v.datapoint_name"), String.class));
+      tvo.setMeterId(record.get(field("v.meter_id"), String.class));
+      tvo.setProviderAccountId(record.get(field("v.provider_account_id"), Integer.class));
+
+      tvo.setType(record.get(field("v.type"), Integer.class));
+      tvo.setValue(record.get(field("v.value"), BigDecimal.class));
+
+      Timestamp tt = record.get(field("v.stime"), Timestamp.class);
+
+      OffsetDateTime ret = OffsetDateTime.ofInstant(tt.toInstant(), ZoneId.of("UTC"));
+
+      tvo.setTimestamp(ret);
+
+      values.add(tvo);
+    }
+
+    conn.close();//close databaseconnection
+    return values;
+  }
+
   //resolution of timerange
   public enum Resolution
   {
@@ -373,6 +443,13 @@ public class TimeValueObject   {
     day,
     month,
     year
+  }
+
+  public enum Type
+  {
+    Consumption,
+    Feedin,
+    Production
   }
 }
 

@@ -461,6 +461,390 @@ paths:
                 format: date-time
                 example: 2021-01-30T08:30:00Z
 
+  /values/feedin/day/{userId}/{startdate}/{enddate}:
+    get:
+      tags:
+        - values
+      description: get day values of provideraccount and datapointname in time range
+      operationId: valuesFeedinDayGetDayValues
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: startdate
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: enddate
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TimeValueObject"
+
+  /values/consumption/day/{userId}/{startdate}/{enddate}:
+    get:
+      tags:
+        - values
+      description: get day values of provideraccount and datapointname in time range
+      operationId: valuesConsumptionDayGetDayValues
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: startdate
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: enddate
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TimeValueObject"
+
+  /values/production/day/{userId}/{startdate}/{enddate}:
+    get:
+      tags:
+        - values
+      description: get day values of provideraccount and datapointname in time range
+      operationId: valuesProductionDayGetDayValues
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: startdate
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: enddate
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TimeValueObject"
+
+  /values/feedin/hour/{userId}/{startdate}/{enddate}:
+    get:
+      tags:
+        - values
+      description: get hour values of provideraccount and datapointname in time range
+      operationId: valuesFeedinhourGethourValues
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: startdate
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: enddate
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TimeValueObject"
+
+  /values/consumption/hour/{userId}/{startdate}/{enddate}:
+    get:
+      tags:
+        - values
+      description: get hour values of provideraccount and datapointname in time range
+      operationId: valuesConsumptionhourGethourValues
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: startdate
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: enddate
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TimeValueObject"
+
+  /values/production/hour/{userId}/{startdate}/{enddate}:
+    get:
+      tags:
+        - values
+      description: get hour values of provideraccount and datapointname in time range
+      operationId: valuesProductionhourGethourValues
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: startdate
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: enddate
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TimeValueObject"
+
+  /values/feedin/month/{userId}/{startdate}/{enddate}:
+    get:
+      tags:
+        - values
+      description: get month values of provideraccount and datapointname in time range
+      operationId: valuesFeedinmonthGetmonthValues
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: startdate
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: enddate
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TimeValueObject"
+
+  /values/consumption/month/{userId}/{startdate}/{enddate}:
+    get:
+      tags:
+        - values
+      description: get month values of provideraccount and datapointname in time range
+      operationId: valuesConsumptionmonthGetmonthValues
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: startdate
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: enddate
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TimeValueObject"
+
+  /values/production/month/{userId}/{startdate}/{enddate}:
+    get:
+      tags:
+        - values
+      description: get month values of provideraccount and datapointname in time range
+      operationId: valuesProductionmonthGetmonthValues
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: startdate
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: enddate
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TimeValueObject"
+
+  /values/feedin/year/{userId}/{startdate}/{enddate}:
+    get:
+      tags:
+        - values
+      description: get year values of provideraccount and datapointname in time range
+      operationId: valuesFeedinyearGetyearValues
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: startdate
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: enddate
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TimeValueObject"
+
+  /values/consumption/year/{userId}/{startdate}/{enddate}:
+    get:
+      tags:
+        - values
+      description: get year values of provideraccount and datapointname in time range
+      operationId: valuesConsumptionyearGetyearValues
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: startdate
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: enddate
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TimeValueObject"
+
+  /values/production/year/{userId}/{startdate}/{enddate}:
+    get:
+      tags:
+        - values
+      description: get year values of provideraccount and datapointname in time range
+      operationId: valuesProductionyearGetyearValues
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: startdate
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: enddate
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TimeValueObject"
+
   /values/feedin/month/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}:
     get:
       tags:

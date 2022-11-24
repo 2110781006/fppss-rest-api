@@ -6,8 +6,10 @@
 package org.openapitools.api;
 
 import io.swagger.annotations.*;
+import org.openapitools.model.ProviderAccountObject;
 import org.openapitools.model.TimeValueObject;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-10-01T11:49:21.249468300+02:00[Europe/Vienna]")
@@ -56,6 +60,42 @@ public interface ValuesApi {
         }
 
         return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+    }
+
+
+    /**
+     * GET /values/consumption/day/{userId}/{startdate}/{enddate}
+     * get day values of provideraccount and datapointname in time range
+     *
+     * @param userId  (required)
+     * @param startdate  (required)
+     * @param enddate  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesConsumptionDayGetDayValues", notes = "get day values of provideraccount and datapointname in time range", response = TimeValueObject.class, responseContainer = "List", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = TimeValueObject.class, responseContainer = "List") })
+    @GetMapping(
+        value = "/values/consumption/day/{userId}/{startdate}/{enddate}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<TimeValueObject>> valuesConsumptionDayGetDayValues(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId,@ApiParam(value = "",required=true) @PathVariable("startdate") String startdate,@ApiParam(value = "",required=true) @PathVariable("enddate") String enddate) {
+
+        try
+        {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime start = LocalDateTime.parse(startdate, formatter);
+            LocalDateTime end = LocalDateTime.parse(enddate, formatter);
+
+            return new ResponseEntity<>(TimeValueObject.readValuesFromDatabase(TimeValueObject.Resolution.day, TimeValueObject.Type.Consumption, userId, start, end), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
     }
 
 
@@ -341,6 +381,115 @@ public interface ValuesApi {
 
 
     /**
+     * GET /values/consumption/hour/{userId}/{startdate}/{enddate}
+     * get hour values of provideraccount and datapointname in time range
+     *
+     * @param userId  (required)
+     * @param startdate  (required)
+     * @param enddate  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesConsumptionhourGethourValues", notes = "get hour values of provideraccount and datapointname in time range", response = TimeValueObject.class, responseContainer = "List", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = TimeValueObject.class, responseContainer = "List") })
+    @GetMapping(
+        value = "/values/consumption/hour/{userId}/{startdate}/{enddate}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<TimeValueObject>> valuesConsumptionhourGethourValues(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId,@ApiParam(value = "",required=true) @PathVariable("startdate") String startdate,@ApiParam(value = "",required=true) @PathVariable("enddate") String enddate) {
+
+        try
+        {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime start = LocalDateTime.parse(startdate, formatter);
+            LocalDateTime end = LocalDateTime.parse(enddate, formatter);
+
+            return new ResponseEntity<>(TimeValueObject.readValuesFromDatabase(TimeValueObject.Resolution.hour, TimeValueObject.Type.Consumption, userId, start, end), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * GET /values/consumption/month/{userId}/{startdate}/{enddate}
+     * get month values of provideraccount and datapointname in time range
+     *
+     * @param userId  (required)
+     * @param startdate  (required)
+     * @param enddate  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesConsumptionmonthGetmonthValues", notes = "get month values of provideraccount and datapointname in time range", response = TimeValueObject.class, responseContainer = "List", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = TimeValueObject.class, responseContainer = "List") })
+    @GetMapping(
+        value = "/values/consumption/month/{userId}/{startdate}/{enddate}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<TimeValueObject>> valuesConsumptionmonthGetmonthValues(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId,@ApiParam(value = "",required=true) @PathVariable("startdate") String startdate,@ApiParam(value = "",required=true) @PathVariable("enddate") String enddate) {
+
+        try
+        {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime start = LocalDateTime.parse(startdate, formatter);
+            LocalDateTime end = LocalDateTime.parse(enddate, formatter);
+
+            return new ResponseEntity<>(TimeValueObject.readValuesFromDatabase(TimeValueObject.Resolution.month, TimeValueObject.Type.Consumption, userId, start, end), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
+     * GET /values/consumption/year/{userId}/{startdate}/{enddate}
+     * get year values of provideraccount and datapointname in time range
+     *
+     * @param userId  (required)
+     * @param startdate  (required)
+     * @param enddate  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesConsumptionyearGetyearValues", notes = "get year values of provideraccount and datapointname in time range", response = TimeValueObject.class, responseContainer = "List", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = TimeValueObject.class, responseContainer = "List") })
+    @GetMapping(
+        value = "/values/consumption/year/{userId}/{startdate}/{enddate}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<TimeValueObject>> valuesConsumptionyearGetyearValues(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId,@ApiParam(value = "",required=true) @PathVariable("startdate") String startdate,@ApiParam(value = "",required=true) @PathVariable("enddate") String enddate) {
+
+        try
+        {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime start = LocalDateTime.parse(startdate, formatter);
+            LocalDateTime end = LocalDateTime.parse(enddate, formatter);
+
+            return new ResponseEntity<>(TimeValueObject.readValuesFromDatabase(TimeValueObject.Resolution.year, TimeValueObject.Type.Consumption, userId, start, end), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
      * POST /values/feedin/day
      * save feedin day values
      *
@@ -360,6 +509,41 @@ public interface ValuesApi {
         {
             TimeValueObject.saveInDatabase(TimeValueObject.Resolution.day, timeValueObject);
             return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+    }
+
+
+    /**
+     * GET /values/feedin/day/{userId}/{startdate}/{enddate}
+     * get day values of provideraccount and datapointname in time range
+     *
+     * @param userId  (required)
+     * @param startdate  (required)
+     * @param enddate  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesFeedinDayGetDayValues", notes = "get day values of provideraccount and datapointname in time range", response = ProviderAccountObject.class, responseContainer = "List", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = ProviderAccountObject.class, responseContainer = "List") })
+    @GetMapping(
+        value = "/values/feedin/day/{userId}/{startdate}/{enddate}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<TimeValueObject>> valuesFeedinDayGetDayValues(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId,@ApiParam(value = "",required=true) @PathVariable("startdate") String startdate,@ApiParam(value = "",required=true) @PathVariable("enddate") String enddate) {
+
+        try
+        {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime start = LocalDateTime.parse(startdate, formatter);
+            LocalDateTime end = LocalDateTime.parse(enddate, formatter);
+
+            return new ResponseEntity<>(TimeValueObject.readValuesFromDatabase(TimeValueObject.Resolution.day, TimeValueObject.Type.Feedin, userId, start, end), HttpStatus.OK);
         }
         catch (Exception e)
         {
@@ -652,6 +836,115 @@ public interface ValuesApi {
 
 
     /**
+     * GET /values/feedin/hour/{userId}/{startdate}/{enddate}
+     * get hour values of provideraccount and datapointname in time range
+     *
+     * @param userId  (required)
+     * @param startdate  (required)
+     * @param enddate  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesFeedinhourGethourValues", notes = "get hour values of provideraccount and datapointname in time range", response = TimeValueObject.class, responseContainer = "List", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = TimeValueObject.class, responseContainer = "List") })
+    @GetMapping(
+        value = "/values/feedin/hour/{userId}/{startdate}/{enddate}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<TimeValueObject>> valuesFeedinhourGethourValues(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId,@ApiParam(value = "",required=true) @PathVariable("startdate") String startdate,@ApiParam(value = "",required=true) @PathVariable("enddate") String enddate) {
+
+        try
+        {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime start = LocalDateTime.parse(startdate, formatter);
+            LocalDateTime end = LocalDateTime.parse(enddate, formatter);
+
+            return new ResponseEntity<>(TimeValueObject.readValuesFromDatabase(TimeValueObject.Resolution.hour, TimeValueObject.Type.Feedin, userId, start, end), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * GET /values/feedin/month/{userId}/{startdate}/{enddate}
+     * get month values of provideraccount and datapointname in time range
+     *
+     * @param userId  (required)
+     * @param startdate  (required)
+     * @param enddate  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesFeedinmonthGetmonthValues", notes = "get month values of provideraccount and datapointname in time range", response = TimeValueObject.class, responseContainer = "List", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = TimeValueObject.class, responseContainer = "List") })
+    @GetMapping(
+        value = "/values/feedin/month/{userId}/{startdate}/{enddate}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<TimeValueObject>> valuesFeedinmonthGetmonthValues(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId,@ApiParam(value = "",required=true) @PathVariable("startdate") String startdate,@ApiParam(value = "",required=true) @PathVariable("enddate") String enddate) {
+
+        try
+        {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime start = LocalDateTime.parse(startdate, formatter);
+            LocalDateTime end = LocalDateTime.parse(enddate, formatter);
+
+            return new ResponseEntity<>(TimeValueObject.readValuesFromDatabase(TimeValueObject.Resolution.month, TimeValueObject.Type.Feedin, userId, start, end), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
+     * GET /values/feedin/year/{userId}/{startdate}/{enddate}
+     * get year values of provideraccount and datapointname in time range
+     *
+     * @param userId  (required)
+     * @param startdate  (required)
+     * @param enddate  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesFeedinyearGetyearValues", notes = "get year values of provideraccount and datapointname in time range", response = TimeValueObject.class, responseContainer = "List", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = TimeValueObject.class, responseContainer = "List") })
+    @GetMapping(
+        value = "/values/feedin/year/{userId}/{startdate}/{enddate}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<TimeValueObject>> valuesFeedinyearGetyearValues(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId,@ApiParam(value = "",required=true) @PathVariable("startdate") String startdate,@ApiParam(value = "",required=true) @PathVariable("enddate") String enddate) {
+
+        try
+        {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime start = LocalDateTime.parse(startdate, formatter);
+            LocalDateTime end = LocalDateTime.parse(enddate, formatter);
+
+            return new ResponseEntity<>(TimeValueObject.readValuesFromDatabase(TimeValueObject.Resolution.year, TimeValueObject.Type.Feedin, userId, start, end), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
      * POST /values/production/day
      * save production day values
      *
@@ -671,6 +964,42 @@ public interface ValuesApi {
         {
             TimeValueObject.saveInDatabase(TimeValueObject.Resolution.day, timeValueObject);
             return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * GET /values/production/day/{userId}/{startdate}/{enddate}
+     * get day values of provideraccount and datapointname in time range
+     *
+     * @param userId  (required)
+     * @param startdate  (required)
+     * @param enddate  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesProductionDayGetDayValues", notes = "get day values of provideraccount and datapointname in time range", response = TimeValueObject.class, responseContainer = "List", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = TimeValueObject.class, responseContainer = "List") })
+    @GetMapping(
+        value = "/values/production/day/{userId}/{startdate}/{enddate}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<TimeValueObject>> valuesProductionDayGetDayValues(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId,@ApiParam(value = "",required=true) @PathVariable("startdate") String startdate,@ApiParam(value = "",required=true) @PathVariable("enddate") String enddate) {
+
+        try
+        {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime start = LocalDateTime.parse(startdate, formatter);
+            LocalDateTime end = LocalDateTime.parse(enddate, formatter);
+
+            return new ResponseEntity<>(TimeValueObject.readValuesFromDatabase(TimeValueObject.Resolution.day, TimeValueObject.Type.Production, userId, start, end), HttpStatus.OK);
         }
         catch (Exception e)
         {
@@ -961,6 +1290,115 @@ public interface ValuesApi {
         }
 
         return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * GET /values/production/hour/{userId}/{startdate}/{enddate}
+     * get hour values of provideraccount and datapointname in time range
+     *
+     * @param userId  (required)
+     * @param startdate  (required)
+     * @param enddate  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesProductionhourGethourValues", notes = "get hour values of provideraccount and datapointname in time range", response = TimeValueObject.class, responseContainer = "List", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = TimeValueObject.class, responseContainer = "List") })
+    @GetMapping(
+        value = "/values/production/hour/{userId}/{startdate}/{enddate}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<TimeValueObject>> valuesProductionhourGethourValues(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId,@ApiParam(value = "",required=true) @PathVariable("startdate") String startdate,@ApiParam(value = "",required=true) @PathVariable("enddate") String enddate) {
+
+        try
+        {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime start = LocalDateTime.parse(startdate, formatter);
+            LocalDateTime end = LocalDateTime.parse(enddate, formatter);
+
+            return new ResponseEntity<>(TimeValueObject.readValuesFromDatabase(TimeValueObject.Resolution.hour, TimeValueObject.Type.Production, userId, start, end), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * GET /values/production/month/{userId}/{startdate}/{enddate}
+     * get month values of provideraccount and datapointname in time range
+     *
+     * @param userId  (required)
+     * @param startdate  (required)
+     * @param enddate  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesProductionmonthGetmonthValues", notes = "get month values of provideraccount and datapointname in time range", response = TimeValueObject.class, responseContainer = "List", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = TimeValueObject.class, responseContainer = "List") })
+    @GetMapping(
+        value = "/values/production/month/{userId}/{startdate}/{enddate}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<TimeValueObject>> valuesProductionmonthGetmonthValues(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId,@ApiParam(value = "",required=true) @PathVariable("startdate") String startdate,@ApiParam(value = "",required=true) @PathVariable("enddate") String enddate) {
+
+        try
+        {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime start = LocalDateTime.parse(startdate, formatter);
+            LocalDateTime end = LocalDateTime.parse(enddate, formatter);
+
+            return new ResponseEntity<>(TimeValueObject.readValuesFromDatabase(TimeValueObject.Resolution.month, TimeValueObject.Type.Production, userId, start, end), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    /**
+     * GET /values/production/year/{userId}/{startdate}/{enddate}
+     * get year values of provideraccount and datapointname in time range
+     *
+     * @param userId  (required)
+     * @param startdate  (required)
+     * @param enddate  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesProductionyearGetyearValues", notes = "get year values of provideraccount and datapointname in time range", response = TimeValueObject.class, responseContainer = "List", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = TimeValueObject.class, responseContainer = "List") })
+    @GetMapping(
+        value = "/values/production/year/{userId}/{startdate}/{enddate}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<TimeValueObject>> valuesProductionyearGetyearValues(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId,@ApiParam(value = "",required=true) @PathVariable("startdate") String startdate,@ApiParam(value = "",required=true) @PathVariable("enddate") String enddate) {
+
+        try
+        {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime start = LocalDateTime.parse(startdate, formatter);
+            LocalDateTime end = LocalDateTime.parse(enddate, formatter);
+
+            return new ResponseEntity<>(TimeValueObject.readValuesFromDatabase(TimeValueObject.Resolution.year, TimeValueObject.Type.Production, userId, start, end), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
 
