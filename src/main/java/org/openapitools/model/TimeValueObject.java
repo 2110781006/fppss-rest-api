@@ -7,10 +7,16 @@ import org.jooq.Record;
 import org.jooq.Result;
 import org.jooq.Table;
 import org.jooq.impl.DSL;
+import org.keycloak.KeycloakPrincipal;
+import org.keycloak.KeycloakSecurityContext;
+import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
+import org.keycloak.representations.IDToken;
 import org.openapitools.DbConnector;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.sql.Connection;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -368,6 +374,22 @@ public class TimeValueObject   {
 
   public static List<TimeValueObject> readValuesFromDatabase(Resolution resolution, Type type, Integer userId, LocalDateTime startdate, LocalDateTime enddate) throws Exception
   {
+    KeycloakAuthenticationToken authentication =
+            (KeycloakAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+
+    Principal principal = (Principal) authentication.getPrincipal();
+
+    if (principal instanceof KeycloakPrincipal) {
+      KeycloakPrincipal<KeycloakSecurityContext> kPrincipal = (KeycloakPrincipal<KeycloakSecurityContext>) principal;
+      IDToken token = kPrincipal.getKeycloakSecurityContext().getIdToken();
+;
+      System.out.println("name: "+principal.getName());
+      System.out.println("name: "+kPrincipal.getName());
+      System.out.println("name: "+kPrincipal.getKeycloakSecurityContext().getToken().getName());
+      System.out.println("name: "+kPrincipal.getKeycloakSecurityContext().getToken().getPreferredUsername());
+      System.out.println("name: "+kPrincipal.getKeycloakSecurityContext().getToken().getEmail());
+    }
+
     DbConnector connector = new DbConnector(System.getenv("FPPSS_DB_URL"), System.getenv("FPPSS_DB_USER"), System.getenv("FPPSS_DB_PASSWORD"));
 
     connector.open();//open databaseconnection

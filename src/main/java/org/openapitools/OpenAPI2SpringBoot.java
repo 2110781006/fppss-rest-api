@@ -44,8 +44,9 @@ public class OpenAPI2SpringBoot implements CommandLineRunner {
             /*@Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("*")
-                        .allowedMethods("*")
+                        .allowedOrigins("http://localhost:4200")
+                        .allowedMethods("*").allowedHeaders("*")
+
                         .allowedHeaders("Content-Type");
             }*/
             @Override
