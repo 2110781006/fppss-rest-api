@@ -12,6 +12,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.io.FileInputStream;
+import java.security.KeyStore;
+import java.util.Properties;
+
 @SpringBootApplication
 @EnableAdminServer
 @ComponentScan(basePackages = {"org.openapitools", "org.openapitools.api" , "org.openapitools.configuration"})
@@ -25,6 +29,12 @@ public class OpenAPI2SpringBoot implements CommandLineRunner {
     }
 
     public static void main(String[] args) throws Exception {
+
+        KeyStore ks = KeyStore.getInstance("JKS");
+        //ks.load(new FileInputStream("C:\\Program Files\\Java\\jdk-18.0.2.1\\bin\\fppss-keystore.jks"), "xxxx".toCharArray());
+        String keyStorePath = System.getenv("FPPSS_KEYSTORE_PATH")+"/"+System.getenv("FPPSS_KEYSTORE_FILENAME");
+        ks.load(new FileInputStream(keyStorePath), System.getenv("FPPSS_KEYSTORE_PASSWORD").toCharArray());
+
         new SpringApplication(OpenAPI2SpringBoot.class).run(args);
     }
 
