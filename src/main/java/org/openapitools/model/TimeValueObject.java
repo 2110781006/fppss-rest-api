@@ -379,15 +379,16 @@ public class TimeValueObject   {
 
     Principal principal = (Principal) authentication.getPrincipal();
 
-    if (principal instanceof KeycloakPrincipal) {
+    String username = "";
+
+    if (principal instanceof KeycloakPrincipal)
+    {
       KeycloakPrincipal<KeycloakSecurityContext> kPrincipal = (KeycloakPrincipal<KeycloakSecurityContext>) principal;
-      IDToken token = kPrincipal.getKeycloakSecurityContext().getIdToken();
-;
-      System.out.println("name: "+principal.getName());
-      System.out.println("name: "+kPrincipal.getName());
-      System.out.println("name: "+kPrincipal.getKeycloakSecurityContext().getToken().getName());
-      System.out.println("name: "+kPrincipal.getKeycloakSecurityContext().getToken().getPreferredUsername());
-      System.out.println("name: "+kPrincipal.getKeycloakSecurityContext().getToken().getEmail());
+
+      username = kPrincipal.getKeycloakSecurityContext().getToken().getPreferredUsername();
+
+      if ( username.equals("fppss") )//for demo use show data of mschmit
+        username = "mschmit";
     }
 
     DbConnector connector = new DbConnector(System.getenv("FPPSS_DB_URL"), System.getenv("FPPSS_DB_USER"), System.getenv("FPPSS_DB_PASSWORD"));
@@ -416,7 +417,8 @@ public class TimeValueObject   {
             .join(table("provider_accounts").as("pa")).on(field("v.provider_account_id").equal(field("pa.id")))
             .join(table("provider").as("p")).on(field("pa.provider_id").equal(field("p.id")))
             .join(table("users").as("u")).on(field("pa.user_id").equal(field("u.id")))
-            .where(field("u.id").equal(userId))
+            //.where(field("u.id").equal(userId))
+            .where(field("u.name").equal(username))
             .and(field("v.type").equal(type.ordinal()))
             .and(field("stime").greaterOrEqual(startdate))
             .and(field("stime").lessThan(enddate))
