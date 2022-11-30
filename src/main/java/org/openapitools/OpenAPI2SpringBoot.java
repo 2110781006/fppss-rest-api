@@ -30,11 +30,6 @@ public class OpenAPI2SpringBoot implements CommandLineRunner {
 
     public static void main(String[] args) throws Exception {
 
-        KeyStore ks = KeyStore.getInstance("JKS");
-        //ks.load(new FileInputStream("C:\\Program Files\\Java\\jdk-18.0.2.1\\bin\\fppss-keystore.jks"), "xxxx".toCharArray());
-        String keyStorePath = System.getenv("FPPSS_KEYSTORE_PATH")+"/"+System.getenv("FPPSS_KEYSTORE_FILENAME");
-        ks.load(new FileInputStream(keyStorePath), System.getenv("FPPSS_KEYSTORE_PASSWORD").toCharArray());
-
         new SpringApplication(OpenAPI2SpringBoot.class).run(args);
     }
 
