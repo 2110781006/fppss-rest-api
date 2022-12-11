@@ -268,7 +268,7 @@ public class ProviderAccountObject   {
             .select(field("pa.username").as("providerAccountUsername"))
             .select(field("pa.password").as("providerAccountPassword"))
             .from(table("provider").as("p"))
-            .leftOuterJoin(table("provider_accounts").as("pa")).on(field("p.id").equal(field("pa.id"))).fetch();
+            .leftOuterJoin(table("provider_accounts").as("pa")).on(field("p.id").equal(field("pa.provider_id"))).fetch();
 
     ArrayList<ProviderAccountObject> accounts = new ArrayList();
 
