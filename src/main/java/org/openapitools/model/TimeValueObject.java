@@ -410,9 +410,14 @@ public class TimeValueObject   {
       case year: t = table("values_year"); break;
     }
 
-    Result result = query
+    Result result = null;
+
+    //if ( resolution != Resolution.spontan )
+      result = query
             .select(field("v.counter_value"),field("v.datapoint_name"),field("v.meter_id"),
-                    field("v.provider_account_id"), field("v.stime"),field("v.type"), field("v.value"))
+                    field("v.provider_account_id"),
+                    field("v.stime").as("mytime"),
+                    field("v.type"), field("v.value"))
             .from(t.as("v"))
             .join(table("provider_accounts").as("pa")).on(field("v.provider_account_id").equal(field("pa.id")))
             .join(table("provider").as("p")).on(field("pa.provider_id").equal(field("p.id")))
@@ -420,10 +425,28 @@ public class TimeValueObject   {
             //.where(field("u.id").equal(userId))
             .where(field("u.name").equal(username))
             .and(field("v.type").equal(type.ordinal()))
-            .and(field("stime").greaterOrEqual(startdate))
-            .and(field("stime").lessThan(enddate))
+            .and(field("v.stime").greaterOrEqual(startdate))
+            .and(field("v.stime").lessThan(enddate))
             .orderBy(field("v.stime").asc())
             .fetch();
+    /*else//spontan query
+      result = query
+              .select(field("v.counter_value"),field("v.datapoint_name"),field("v.meter_id"),
+                      field("v.provider_account_id"),
+                      field("v.stime"),
+                      //field("SUBTIME(v.stime, '00:07:30')").sub().as("mytime"),timestampSub(field("v.stime"),"00:07:30")
+                      field("v.type"), field("v.value"))
+              .from(t.as("v"))
+              .join(table("provider_accounts").as("pa")).on(field("v.provider_account_id").equal(field("pa.id")))
+              .join(table("provider").as("p")).on(field("pa.provider_id").equal(field("p.id")))
+              .join(table("users").as("u")).on(field("pa.user_id").equal(field("u.id")))
+              //.where(field("u.id").equal(userId))
+              .where(field("u.name").equal(username))
+              .and(field("v.type").equal(type.ordinal()))
+              .and(field("v.stime").greaterOrEqual(startdate))
+              .and(field("v.stime").lessThan(enddate))
+              .orderBy(field("v.stime").asc())
+              .fetch();*/
 
     List<TimeValueObject> values = new ArrayList<>();
 
@@ -446,13 +469,79 @@ public class TimeValueObject   {
       tvo.setType(record.get(field("v.type"), Integer.class));
       tvo.setValue(record.get(field("v.value"), BigDecimal.class));
 
-      Timestamp tt = record.get(field("v.stime"), Timestamp.class);
+      Timestamp tt = record.get(field("mytime"), Timestamp.class);
 
       OffsetDateTime ret = OffsetDateTime.ofInstant(tt.toInstant(), ZoneId.of("UTC"));
 
       tvo.setTimestamp(ret);
 
       values.add(tvo);
+    }
+
+    if ( resolution == Resolution.spontan )//modify data
+    {
+        if ( type == Type.Consumption )
+        {
+            List<TimeValueObject> newValues = new ArrayList<>();
+
+            for ( var val : values )//15 min values
+            {
+                BigDecimal avgVal = new BigDecimal(val.getValue().floatValue() / 3);
+
+                for ( int i = 3; i > 0; i-- )
+                {
+                  //val.setValue(avgVal);
+                  //val.setTimestamp(val.getTimestamp().minusSeconds(450));//minus 7:30 min
+
+                  TimeValueObject temp = new TimeValueObject();
+
+                  temp.setValue(avgVal);
+                  temp.setTimestamp(val.getTimestamp().minusSeconds(i*5*60));
+                  temp.setMeterId(val.getMeterId());
+                  temp.setDatapointname(val.getDatapointname());
+                  temp.setProviderAccountId(val.getProviderAccountId());
+                  temp.setType(val.getType());
+
+                  newValues.add(temp);
+                }
+            }
+
+            values = newValues;
+        }
+        else if ( type == Type.Feedin )
+        {
+          List<TimeValueObject> newValues = new ArrayList<>();
+            for ( var val : values )//15 min values
+            {
+                BigDecimal avgVal = new BigDecimal(val.getValue().floatValue() / 3);
+
+              for ( int i = 3; i > 0; i-- )
+              {
+                //val.setValue(avgVal);
+                //val.setTimestamp(val.getTimestamp().minusSeconds(450));//minus 7:30 min
+
+                TimeValueObject temp = new TimeValueObject();
+
+                temp.setValue(avgVal);
+                temp.setTimestamp(val.getTimestamp().minusSeconds(i*5*60));
+                temp.setMeterId(val.getMeterId());
+                temp.setDatapointname(val.getDatapointname());
+                temp.setProviderAccountId(val.getProviderAccountId());
+                temp.setType(val.getType());
+
+                newValues.add(temp);
+              }
+            }
+          values = newValues;
+        }
+        else if ( type == Type.Production )
+        {
+            for ( var val : values )//5 min values
+            {
+                val.setValue(new BigDecimal(val.getValue().floatValue()/60*5));
+                //val.setTimestamp(val.getTimestamp().minusSeconds(150));//minus 2:30 min
+            }
+        }
     }
 
     conn.close();//close databaseconnection

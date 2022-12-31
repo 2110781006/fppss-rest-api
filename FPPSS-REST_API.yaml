@@ -589,6 +589,38 @@ paths:
                 items:
                   $ref: "#/components/schemas/TimeValueObject"
 
+  /values/feedin/spontan/{userId}/{startdate}/{enddate}:
+    get:
+      tags:
+        - values
+      description: get spontan values of provideraccount and datapointname in time range
+      operationId: valuesFeedinGetSpontanValues
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: startdate
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: enddate
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TimeValueObject"
+
   /values/consumption/hour/{userId}/{startdate}/{enddate}:
     get:
       tags:
@@ -621,12 +653,76 @@ paths:
                 items:
                   $ref: "#/components/schemas/TimeValueObject"
 
+  /values/consumption/spontan/{userId}/{startdate}/{enddate}:
+    get:
+      tags:
+        - values
+      description: get spontan values of provideraccount and datapointname in time range
+      operationId: valuesConsumptionGetSpontanValues
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: startdate
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: enddate
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TimeValueObject"
+
   /values/production/hour/{userId}/{startdate}/{enddate}:
     get:
       tags:
         - values
       description: get hour values of provideraccount and datapointname in time range
       operationId: valuesProductionhourGethourValues
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: startdate
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: enddate
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TimeValueObject"
+
+  /values/production/spontan/{userId}/{startdate}/{enddate}:
+    get:
+      tags:
+        - values
+      description: get spontan values of provideraccount and datapointname in time range
+      operationId: valuesProductionGetSpontanValues
       parameters:
         - name: userId
           in: path

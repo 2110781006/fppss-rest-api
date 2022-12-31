@@ -287,6 +287,42 @@ public interface ValuesApi {
 
 
     /**
+     * GET /values/consumption/spontan/{userId}/{startdate}/{enddate}
+     * get spontan values of provideraccount and datapointname in time range
+     *
+     * @param userId  (required)
+     * @param startdate  (required)
+     * @param enddate  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesConsumptionGetSpontanValues", notes = "get spontan values of provideraccount and datapointname in time range", response = TimeValueObject.class, responseContainer = "List", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = TimeValueObject.class, responseContainer = "List") })
+    @GetMapping(
+        value = "/values/consumption/spontan/{userId}/{startdate}/{enddate}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<TimeValueObject>> valuesConsumptionGetSpontanValues(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId,@ApiParam(value = "",required=true) @PathVariable("startdate") String startdate,@ApiParam(value = "",required=true) @PathVariable("enddate") String enddate) {
+
+        try
+        {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime start = LocalDateTime.parse(startdate, formatter);
+            LocalDateTime end = LocalDateTime.parse(enddate, formatter);
+
+            return new ResponseEntity<>(TimeValueObject.readValuesFromDatabase(TimeValueObject.Resolution.spontan, TimeValueObject.Type.Consumption, userId, start, end), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
      * GET /values/consumption/spontan/lastTimeStamp/{providerAccountId}/{meterId}/{datapointname}
      * get last timestamp of spontan values of provideraccount and datapointname
      *
@@ -575,6 +611,42 @@ public interface ValuesApi {
         try
         {
             return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.day, providerAccountId, meterId, datapointname), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * GET /values/feedin/spontan/{userId}/{startdate}/{enddate}
+     * get spontan values of provideraccount and datapointname in time range
+     *
+     * @param userId  (required)
+     * @param startdate  (required)
+     * @param enddate  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesFeedinGetSpontanValues", notes = "get spontan values of provideraccount and datapointname in time range", response = TimeValueObject.class, responseContainer = "List", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = TimeValueObject.class, responseContainer = "List") })
+    @GetMapping(
+        value = "/values/feedin/spontan/{userId}/{startdate}/{enddate}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<TimeValueObject>> valuesFeedinGetSpontanValues(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId,@ApiParam(value = "",required=true) @PathVariable("startdate") String startdate,@ApiParam(value = "",required=true) @PathVariable("enddate") String enddate) {
+
+        try
+        {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime start = LocalDateTime.parse(startdate, formatter);
+            LocalDateTime end = LocalDateTime.parse(enddate, formatter);
+
+            return new ResponseEntity<>(TimeValueObject.readValuesFromDatabase(TimeValueObject.Resolution.spontan, TimeValueObject.Type.Feedin, userId, start, end), HttpStatus.OK);
         }
         catch (Exception e)
         {
@@ -1032,6 +1104,42 @@ public interface ValuesApi {
         try
         {
             return new ResponseEntity<>(TimeValueObject.getLastTimestamp(TimeValueObject.Resolution.day, providerAccountId, meterId, datapointname), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+    }
+
+
+    /**
+     * GET /values/production/spontan/{userId}/{startdate}/{enddate}
+     * get spontan values of provideraccount and datapointname in time range
+     *
+     * @param userId  (required)
+     * @param startdate  (required)
+     * @param enddate  (required)
+     * @return successfully query (status code 200)
+     */
+    @ApiOperation(value = "", nickname = "valuesProductionGetSpontanValues", notes = "get spontan values of provideraccount and datapointname in time range", response = TimeValueObject.class, responseContainer = "List", tags={ "values", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successfully query", response = TimeValueObject.class, responseContainer = "List") })
+    @GetMapping(
+        value = "/values/production/spontan/{userId}/{startdate}/{enddate}",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<TimeValueObject>> valuesProductionGetSpontanValues(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId,@ApiParam(value = "",required=true) @PathVariable("startdate") String startdate,@ApiParam(value = "",required=true) @PathVariable("enddate") String enddate) {
+
+        try
+        {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime start = LocalDateTime.parse(startdate, formatter);
+            LocalDateTime end = LocalDateTime.parse(enddate, formatter);
+
+            return new ResponseEntity<>(TimeValueObject.readValuesFromDatabase(TimeValueObject.Resolution.spontan, TimeValueObject.Type.Production, userId, start, end), HttpStatus.OK);
         }
         catch (Exception e)
         {
